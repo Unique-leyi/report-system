@@ -22,9 +22,8 @@ module.exports = {
   },
 
     fontFamily: {
-      opensauce: ["Open Sauce One", "sans-serif"],
-      inter: ["Inter", "sans-serif"],
       outfit: ["Outfit", "sans-serif"],
+      inter: ["Inter", "sans-serif"],
     }
   },
   plugins: [],
