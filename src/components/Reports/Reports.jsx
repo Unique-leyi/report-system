@@ -3,10 +3,25 @@ import { Stack, VStack, Grid, GridItem } from '@chakra-ui/react';
 import ReportCard from "./ReportCard";
 import ReportsPaginate from "./ReportsPaginate";
 import { useState } from 'react';
+import { useReportContext } from '../../context/ReportContext';
 
 const Reports = () => {
 
+  const { onOpen } = useReportContext();
+
   const cardData = Array.from({ length: 100 }, (_, index) => index);
+
+  const [ openModal, setOpenModal ] = useState(0);
+
+  const handleOpenModal = (value) => {
+    const isOpen = value !== openModal || openModal === 0;
+    setOpenModal(isOpen ? value : 0);
+    if (isOpen) {
+      onOpen();
+    }
+  };
+
+   //Pagination
 
   const [currentPage, setCurrentPage] = useState(0); 
   const itemsPerPage = 20; 
@@ -37,7 +52,7 @@ const Reports = () => {
                 { currentItems &&
                     currentItems.map((card, i) => (
                         <GridItem key={i}>
-                            <ReportCard {...card}/>
+                            <ReportCard {...card} handleOpen={() => handleOpenModal(i)}/>
                         </GridItem>
                     ))
                 }

@@ -14,14 +14,14 @@ import {
 import Image from "next/image";
 import { avatar, imageOne, imageTwo } from "../../../public/assets"
 
-const ReportCard = () => {
+const ReportCard = ({ handleOpen }) => {
     return (
         <Card data-aos="zoom-in" data-aos-duration="2000" gap={4} sx={{
             borderRadius: "24px",
             border: "1px solid var(--darkmode-strokes-tinted, rgba(125, 249, 255, 0.12))",
             backgroundColor: "var(--darkmode-bg-02, #141F1F)",
-            padding: "2rem 1rem !important"
-        }}>
+            padding: "2rem 1rem !important",
+        }} onClick={handleOpen} className="!cursor-pointer hover:!ease-in hover:!duration-100 hover:!scale-105">
            <CardHeader>
                 <Stack spacing={4}>
                     <Box w="100%" sx={{ 

@@ -1,0 +1,6 @@
+.detail_bullet .swiper-pagination-bullets{
+    width: 20px !important;
+    height: 20px !important;
+    margin: 0 15px !important;
+    background-color: white;
+}

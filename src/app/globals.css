@@ -19,3 +19,11 @@ a {
     text-decoration: none !important;
 }
 
+
+
+.swiper-pagination .swiper-pagination-bullet{
+  width: 10px !important;
+  height: 10px !important;
+  margin: 0 8px !important;
+  background-color: white !important;
+}

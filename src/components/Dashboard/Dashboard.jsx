@@ -5,6 +5,8 @@ import Reports from "../Reports/Reports";
 import { Stack } from '@chakra-ui/react';
 
 const Dashboard = () => {
+ 
+
     return (
         <Stack>
            <DashboardHeader/>

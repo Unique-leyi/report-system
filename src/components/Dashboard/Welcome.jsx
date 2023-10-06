@@ -15,8 +15,12 @@ import classes from "../styles/welcome.module.css";
 import Image from "next/image";
 import { calendar, wave } from "../../../public/assets/";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
+import { useReportContext } from '../../context/ReportContext';
 
 const Welcome = () => {
+    const { onOpen } = useReportContext();
+
+
     return (
         <Stack w="100%">
              <SimpleGrid columns={{ base: 1, sm: 2 }} spacing={10} sx={{ padding: {
@@ -46,12 +50,12 @@ const Welcome = () => {
                     </Box>
                  
                         <Box w="100%">
-                            <Flex justify="around" align="center" gap={8}>
+                            <Flex justify="around" align="center" gap={4}>
                                 <Heading as="h5" className="!text-white !text-lg !font-bold">
                                     2023
                                 </Heading>
 
-                                <Button leftIcon={<MdKeyboardArrowLeft/>} rightIcon={<MdKeyboardArrowRight/>} className="!uppercase !rounded-full !py-[15px] !px-[12px]" sx={{
+                                <Button leftIcon={<MdKeyboardArrowLeft w={10} h={10}/>} rightIcon={<MdKeyboardArrowRight/>} className="!uppercase !rounded-full !py-[15px] !px-[12px] text-xs" sx={{
                                     border: "1px solid var(--white-8, rgba(255, 255, 255, 0.08))",
                                     backgroundColor: "#1C2B2B !important",
                                     color: "white",
@@ -59,7 +63,7 @@ const Welcome = () => {
                                     all
                                 </Button>
 
-                                <Button leftIcon={<MdKeyboardArrowLeft/>} rightIcon={<MdKeyboardArrowRight/>} className="!uppercase !rounded-full !py-[15px] !px-[12px]" sx={{
+                                <Button leftIcon={<MdKeyboardArrowLeft/>} rightIcon={<MdKeyboardArrowRight/>} className="!uppercase !rounded-full !py-[15px] !px-[12px] text-xs" sx={{
                                     border: "1px solid var(--white-8, rgba(255, 255, 255, 0.08))",
                                     backgroundColor: "#1C2B2B !important",
                                     color: "white",
@@ -67,7 +71,7 @@ const Welcome = () => {
                                     all
                                 </Button>
 
-                                <Button className="!bg-farblue !rounded-full !py-4 !px-7">
+                                <Button className="!bg-farblue !rounded-full !py-4 !px-7" onClick={onOpen}>
                                     Upload Report
                                 </Button>
                             </Flex>
