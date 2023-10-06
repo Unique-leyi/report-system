@@ -1,0 +1,10 @@
+.upload_text {
+    color: var(--white-50, rgba(255, 255, 255, 0.50)) !important;
+    font-variant-numeric: lining-nums proportional-nums !important;
+    font-family: Outfit !important;
+    font-size: 16px !important;
+    font-style: normal !important;
+    font-weight: 400 !important;
+    line-height: 140% !important;
+    letter-spacing: -0.23px !important;
+}
