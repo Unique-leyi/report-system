@@ -1,0 +1,4 @@
+.active_bg {
+    border-radius: 8px;
+    background: var(--darkmode-bg-02, #141F1F);
+}

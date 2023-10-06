@@ -1,23 +1,34 @@
 "use client";
-import { Stack, VStack, Box, Card, CardHeader, CardBody, Heading, Text, Badge } from '@chakra-ui/react';
+import { 
+    Stack, 
+    VStack, 
+    Box, 
+    Card, 
+    CardHeader, 
+    CardBody, 
+    CardFooter, 
+    Heading, 
+    Text, 
+    Badge, 
+} from '@chakra-ui/react';
 import Image from "next/image";
-import { avatar } from "../../../public/assets"
+import { avatar, imageOne, imageTwo } from "../../../public/assets"
 
 const ReportCard = () => {
     return (
-        <Card data-aos="zoom-in" data-aos-duration="1000" sx={{
+        <Card data-aos="zoom-in" data-aos-duration="2000" gap={4} sx={{
             borderRadius: "24px",
             border: "1px solid var(--darkmode-strokes-tinted, rgba(125, 249, 255, 0.12))",
             backgroundColor: "var(--darkmode-bg-02, #141F1F)",
             padding: "2rem 1rem !important"
         }}>
            <CardHeader>
-                <Stack>
+                <Stack spacing={4}>
                     <Box w="100%" sx={{ 
                         display: "flex !important",
                         justifyContent: "space-between !important",
                         alignItems: "center",
-                        gap: "2rem",
+                        gap: "1rem",
                      }}>
                         <Stack>
                             <Box w="100%">
@@ -51,7 +62,7 @@ const ReportCard = () => {
 
                         <Stack>
                             <Box w="100%">
-                                <Heading as="h4" color="var(--white-100, #FFF)" className="!text-white !font-bold !text-2xl ">
+                                <Heading as="h4" color="var(--white-100, #FFF)" className="!text-white !font-bold !text-2xl !mt-3">
                                     Wallet Navigation
                                 </Heading>
                             </Box>
@@ -78,6 +89,32 @@ const ReportCard = () => {
                     </Box>
                 </VStack>
             </CardBody>
+
+            <CardFooter>
+                <Stack direction='row'>
+                    <Image
+                        width={100}
+                        height={100}
+                        priority={true}
+                        src={imageOne}
+                        alt='report-image'
+                    />
+                    <Image
+                        width={100}
+                        height={100}
+                        priority={true}
+                        src={imageTwo}
+                        alt='report-image'
+                    />
+                    <Image 
+                        width={100}
+                        height={100}
+                        priority={true}
+                        src={imageOne}
+                        alt='report-image'
+                    />
+                </Stack>
+            </CardFooter>
              
         </Card>
     )

@@ -1,9 +1,20 @@
 "use client";
 
-import { Stack, Container, VStack, HStack, SimpleGrid, Box, Heading } from '@chakra-ui/react';
+import { 
+    Stack, 
+    VStack, 
+    HStack, 
+    SimpleGrid, 
+    Box, 
+    Heading, 
+    Button,
+    Flex,
+    Spacer, 
+} from '@chakra-ui/react';
 import classes from "../styles/welcome.module.css";
 import Image from "next/image";
-import { calendar } from "../../../public/assets/";
+import { calendar, wave } from "../../../public/assets/";
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 
 const Welcome = () => {
     return (
@@ -12,13 +23,18 @@ const Welcome = () => {
                 base: "2rem !important",
                 sm: "1rem 4rem !important"
             } }}>
-                <VStack w={"100%"} sx={{ padding: "2rem !important" }}> 
+                <VStack w={"100%"} sx={{ padding: "2rem !important" }} gap={10}> 
                     <Box w="100%" className="!flex !justify-start !items-start !flex-col !gap-3">
-                        <Heading as="h5" 
-                            color={"var(--white-50, rgba(255, 255, 255, 0.50))"}
-                            className={classes.welcome_text}>
-                            Welcome back Admin
-                        </Heading>
+                        <Flex justify={"flex-start"} align={"flex-start"} gap={3}>
+                            <Heading as="h5" 
+                                color={"var(--white-50, rgba(255, 255, 255, 0.50))"}
+                                className={classes.welcome_text}>
+                                Welcome back Admin
+                            </Heading>
+
+                            <Image src={wave} alt="hand-wave-image" priority={true}/>
+
+                        </Flex>
 
                         <Heading as="h5" className="!text-white !text-4xl !font-bold">
                             Welcome to our report dashboard
@@ -28,11 +44,36 @@ const Welcome = () => {
                              Record, Update and track team’s progress.
                         </Heading>
                     </Box>
-                    <HStack>
-                        <Box w="100%" className="!flex !justify-around !items-center gap-4">
+                 
+                        <Box w="100%">
+                            <Flex justify="around" align="center" gap={8}>
+                                <Heading as="h5" className="!text-white !text-lg !font-bold">
+                                    2023
+                                </Heading>
+
+                                <Button leftIcon={<MdKeyboardArrowLeft/>} rightIcon={<MdKeyboardArrowRight/>} className="!uppercase !rounded-full !py-[15px] !px-[12px]" sx={{
+                                    border: "1px solid var(--white-8, rgba(255, 255, 255, 0.08))",
+                                    backgroundColor: "#1C2B2B !important",
+                                    color: "white",
+                                }}>
+                                    all
+                                </Button>
+
+                                <Button leftIcon={<MdKeyboardArrowLeft/>} rightIcon={<MdKeyboardArrowRight/>} className="!uppercase !rounded-full !py-[15px] !px-[12px]" sx={{
+                                    border: "1px solid var(--white-8, rgba(255, 255, 255, 0.08))",
+                                    backgroundColor: "#1C2B2B !important",
+                                    color: "white",
+                                }}>
+                                    all
+                                </Button>
+
+                                <Button className="!bg-farblue !rounded-full !py-4 !px-7">
+                                    Upload Report
+                                </Button>
+                            </Flex>
 
                         </Box>
-                    </HStack>
+                    
                 </VStack>
 
                 <VStack>
