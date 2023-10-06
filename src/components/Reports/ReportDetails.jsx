@@ -35,14 +35,7 @@ const ReportDetails = ({ handleIsOpen, handleOnClose }) => {
         <Modal isOpen={handleIsOpen} onClose={handleOnClose} sx={{
             overflow: "hidden !important",
         }}>
-        <ModalCloseButton className="!bg-white !rounded-full !text-black !p-6" 
-                sx={{
-                    position: "absolute",
-                    top: "28rem !important",
-                    right: "25rem !important",
-                    zIndex: 9999,
-                }}
-            />
+       
         <ModalOverlay />
         <ModalContent 
             data-aos="zoom-in"
@@ -51,17 +44,29 @@ const ReportDetails = ({ handleIsOpen, handleOnClose }) => {
                 borderRadius: "24px !important",
                 border: "1px solid var(--darkmode-strokes-tinted, rgba(125, 249, 255, 0.12)) !important",
                 backgroundColor: "var(--darkmode-bg-02, #141F1F)",
-                marginBlock: "12rem !important",
-                overflow: "hidden !important",
+                marginBlock: "8rem !important",
             }}
         >
+
+            <ModalCloseButton className="!bg-white !rounded-full !text-black !p-6" 
+                sx={{
+                    position: "absolute",
+                    top: "-4.5rem !important",
+                    right: "0rem !important",
+                    zIndex: 9999,
+                }}
+            />
          
        
-          <ModalHeader>
+          <ModalHeader sx={{
+            overflow: "hidden !important",
+            borderRadius: "24px !important",
+            padding: "4px !important",
+          }}>
 
             <Swiper
               slidesPerView={1}
-              spaceBetween={30}
+              spaceBetween={0}
               autoplay={{
                 delay: 2500,
                 disableOnInteraction: false,
@@ -77,18 +82,17 @@ const ReportDetails = ({ handleIsOpen, handleOnClose }) => {
                 {
                     images.map((image, i) => (
                         <SwiperSlide key={i}>
-                            <Box sx={{
-                                overflow: "hidden !important",
-                                position: "relative !important"
-                            }}>
+                            <Box className={classes.image_box}>
                                 <Image 
                                     fill
-                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                    style={{
+                                        objectFit: "cover",
+                                    }}
+                                    sizes="(max-width: 768px) 100vw"
                                     {...image} 
                                     src={imageOne} 
                                     alt="report-images" 
                                     priority={true}
-                                    className="rounded-lg"
                                 /> 
                             </Box>
                         </SwiperSlide>

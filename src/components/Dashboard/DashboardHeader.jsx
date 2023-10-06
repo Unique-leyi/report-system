@@ -3,11 +3,15 @@ import { Stack } from '@chakra-ui/react';
 import DashboardBar from "./DashboardBar";
 import Welcome from "./Welcome";
 
-const DashboardHeader = () => {
+const DashboardHeader = ({ children }) => {
     return (
-        <Stack className="!bg-primary">
-           <DashboardBar/>
-           <Welcome/> 
+        <Stack>
+            <Stack className="!bg-primary">
+                <DashboardBar/>
+                <Welcome/>
+            </Stack>
+
+            { children }
         </Stack>
     )
 }

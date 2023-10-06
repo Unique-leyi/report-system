@@ -1,6 +1,14 @@
-.detail_bullet .swiper-pagination-bullets{
-    width: 20px !important;
-    height: 20px !important;
-    margin: 0 15px !important;
-    background-color: white;
+.detail_bullet {
+  /* overflow: hidden !important; */
+}
+
+
+.image_box {
+    position: relative;
+    border-radius: 24px !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    aspect-ratio: 100/60 !important;
+    overflow: hidden !important;
 }

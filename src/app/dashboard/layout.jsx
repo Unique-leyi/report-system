@@ -1,13 +1,11 @@
 "use client";
-
-import Dashboard from "../../components/Dashboard/Dashboard";
 import { ReportContextProvider } from "../../context/ReportContext";
 
-const DashboardPage = () => {
+const DashboardPage = ({ children }) => {
     return (
         <div>
           <ReportContextProvider>
-            <Dashboard/>
+            { children }
           </ReportContextProvider>  
         </div>
     )
