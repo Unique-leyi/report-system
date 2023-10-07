@@ -13,14 +13,13 @@ import {
 } from '@chakra-ui/react';
 import classes from "../styles/welcome.module.css";
 import Image from "next/image";
+import Link from "next/link";
 import { calendar, wave } from "../../../public/assets/";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
-import { useReportContext } from '../../context/ReportContext';
+
 
 const Welcome = () => {
-    const { onOpen } = useReportContext();
-
-
+  
     return (
         <Stack w="100%">
              <SimpleGrid columns={{ base: 1, sm: 2 }} spacing={10} sx={{ padding: {
@@ -71,9 +70,9 @@ const Welcome = () => {
                                     all
                                 </Button>
 
-                                <Button className="!bg-farblue !rounded-full !py-4 !px-7" onClick={onOpen}>
+                                <Link href={"/dashboard/report-upload"} className="!bg-farblue !rounded-full font-medium !py-3 !px-7">
                                     Upload Report
-                                </Button>
+                                </Link>
                             </Flex>
 
                         </Box>

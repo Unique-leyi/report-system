@@ -3,6 +3,7 @@ import calendar from "../assets/images/calendar.png";
 import imageOne from "../assets/images/imageOne.png";
 import imageTwo from "../assets/images/imageTwo.png";
 import wave from "../assets/images/wave.png";
+import uploadDocs from "../assets/svgs/document-upload.svg";
 
 export {
     avatar,
@@ -10,4 +11,5 @@ export {
     imageOne,
     imageTwo,
     wave,
+    uploadDocs,
 }

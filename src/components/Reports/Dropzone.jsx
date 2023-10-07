@@ -3,7 +3,8 @@
 import Image from 'next/image'
 import { useCallback, useEffect, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
-import { ArrowUpTrayIcon, XMarkIcon } from 'react-icons/hi'
+import { FaXmark, FaArrowUpFromBracket } from "react-icons/fa6";
+
 
 const Dropzone = ({ className }) => {
   const [files, setFiles] = useState([])
@@ -77,7 +78,7 @@ const Dropzone = ({ className }) => {
       >
         <input {...getInputProps()} />
         <div className='flex flex-col items-center justify-center gap-4'>
-          <ArrowUpTrayIcon className='w-5 h-5 fill-current' />
+          <FaArrowUpFromBracket className='w-5 h-5 fill-current' />
           {isDragActive ? (
             <p>Drop the files here ...</p>
           ) : (
@@ -127,7 +128,7 @@ const Dropzone = ({ className }) => {
                 className='w-7 h-7 border border-secondary-400 bg-secondary-400 rounded-full flex justify-center items-center absolute -top-3 -right-3 hover:bg-white transition-colors'
                 onClick={() => removeFile(file.name)}
               >
-                <XMarkIcon className='w-5 h-5 fill-white hover:fill-secondary-400 transition-colors' />
+                <FaXmark className='w-5 h-5 fill-white hover:fill-secondary-400 transition-colors' />
               </button>
               <p className='mt-2 text-neutral-500 text-[12px] font-medium'>
                 {file.name}

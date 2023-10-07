@@ -21,6 +21,10 @@ import {
 } from '@chakra-ui/react';
 import classes from "../styles/reportupload.module.css";
 import { useState } from 'react';
+import MyDropzone from "./MyDropzone";
+import Link from "next/link";
+import { RiArrowLeftSLine } from "react-icons/ri";
+
 
 const ReportUpload = () => {
     const [formData, setFormData] = useState({
@@ -30,13 +34,30 @@ const ReportUpload = () => {
         task_image: null,
     })
     
-    const handleChange = () => {
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value,
+        });
 
     }
     return (
        <VStack sx={{
-        padding: "4rem 3rem !important",
+        padding: "2.5rem 3rem !important",
         }}>
+             <Box mb={"0.5rem"} w={{ 
+                    base: "100%",
+                    lg: "45%",
+                }}>
+                <Link href="/dashboard/reports" className="!text-farash hover:!text-white">
+                    <Flex justify="flex-start" align="center" gap="0.5rem">
+                        <RiArrowLeftSLine mx='2px'/> 
+                        <Text>Go back to reports </Text>
+                    </Flex>
+                </Link>
+            </Box>
+
+                
             <Box w={{ 
                 base: "100%",
                 lg: "45%",
@@ -45,8 +66,10 @@ const ReportUpload = () => {
                     borderRadius: "24px !important",
                     backgroundColor: "var(--darkmode-bg-02, #141F1F) !important",
                     padding: "24px !important",
+                    marginTop:"0.5rem !important",
                 }}>
-                <Card bg="transparent" className="!shadow-transparent" gap={14}>
+                   
+                <Card bg="transparent" className="!shadow-none" gap={18}>
 
                     <CardHeader>
                         <Stack>
@@ -62,7 +85,7 @@ const ReportUpload = () => {
                     </CardHeader>
 
                     <CardBody gap={10}>
-                        <Flex justify="flex-start" align="flex-start" gap="1rem" direction="column">
+                        <Flex justify="flex-start" align="flex-start" gap="1.4rem" direction="column">
                             <Box w="100%">
                                 <FormControl id="task-headline">
                                     <FormLabel className="!text-white !mb-2 !text-sm !font-outfit">Task Headline</FormLabel>
@@ -77,7 +100,7 @@ const ReportUpload = () => {
                             <Box w="100%">
                                 <FormControl id="task-summary">
                                     <FormLabel className="!text-white !mb-2 !text-sm !font-outfit">Task Summary</FormLabel>
-                                    <Textarea size={"lg"} type="text" name="task_summary" onChange={handleChange} value={formData.task_summary} placeholder="Give a brief summary of the task" className=" !text-white !bg-[#0E1515] !border-[1px] !py-[10px] !px-[14px] !border-[rgba(255,255,255,0.08)]" _placeholder={{
+                                    <Textarea size={"lg"} name="task_summary" onChange={handleChange} value={formData.task_summary} placeholder="Give a brief summary of the task" className=" !text-white !bg-[#0E1515] !border-[1px] !py-[10px] !px-[14px] !border-[rgba(255,255,255,0.08)]" _placeholder={{
                                         fontSize: "14px",
                                         fontFamily: "Outfit",
                                         fontWeight: 300,
@@ -89,33 +112,49 @@ const ReportUpload = () => {
                                 <FormControl id="task-date">
                                     <FormLabel className="!text-white !mb-2 !text-sm !font-outfit">Select Date</FormLabel>
                                     <Select name="task_date" onChange={handleChange} value={formData.task_date} placeholder="Select date" className=" !text-white !bg-[#0E1515] !border-[1px] !py-[10px] !px-[14px] !border-[rgba(255,255,255,0.08)]" _placeholder={{
-                                        fontSize: "14px",
+                                        fontSize: "12px",
                                         fontFamily: "Outfit",
                                         fontWeight: 300,
-                                        color: "rgba(255,255,255,0.08)",
                                     }}>
-                                        <option value='option1'>Option 1</option>
-                                        <option value='option2'>Option 2</option>
-                                        <option value='option3'>Option 3</option>
+                                        <option className="!text-sm !text-[rgba(255,255,255,0.08)]" value='option1'>Option 1</option>
+                                        <option className="!text-sm !text-[rgba(255,255,255,0.08)]" value='option2'>Option 2</option>
+                                        <option className="!text-sm !text-[rgba(255,255,255,0.08)]" value='option3'>Option 3</option>
                                     </Select>
                                 </FormControl>
                             </Box>
 
                             <VStack spacing={10}>
                                 <Box display='flex' alignItems="center" gap="0.8rem">
-                                    <Badge className="!text-xs" border="1px solid var(--darkmode-strokes-tinted, rgba(125, 249, 255, 0.12))" borderRadius='full' backgroundColor={"var(--darkmode-bg-01, #0E1515);"} color="white" sx={{
+                                    <Button name="task-tag" className="!text-xs" border="1px solid var(--darkmode-strokes-tinted, rgba(125, 249, 255, 0.12))" borderRadius='full' color="white" sx={{
                                         padding: "0.5rem !important",
+                                        backgroundColor: "var(--darkmode-bg-01, #0E1515) !important",
                                     }}>
                                         Design
-                                    </Badge>
+                                    </Button>
 
-                                    <Badge className="!text-xs" border="1px solid var(--darkmode-strokes-tinted, rgba(125, 249, 255, 0.12))" borderRadius='full' backgroundColor={"var(--darkmode-bg-01, #0E1515);"} color="white" sx={{
+                                    <Button name="task-tag" className="!text-xs" border="1px solid var(--darkmode-strokes-tinted, rgba(125, 249, 255, 0.12))" borderRadius='full' color="white" sx={{
                                         padding: "0.5rem !important",
+                                        backgroundColor: "var(--darkmode-bg-01, #0E1515) !important",
                                     }}>
                                         Development
-                                    </Badge>
+                                    </Button>
                                 </Box>
                             </VStack>
+
+                            <VStack spacing={10}>
+                                <MyDropzone/>   
+                            </VStack>
+
+                            <Stack w="100%" spacing={10}>
+                                <Button
+                                    className="!bg-farash hover:!bg-farblue py-[10px] px-4 text-primary text-center font-semibold !rounded-full"
+                                    loadingText="Submitting...."
+                                    size="md"
+                                    width={"100%"}
+                                >
+                                Upload Report
+                                </Button>
+                            </Stack>
                         </Flex>
                     </CardBody>
 
