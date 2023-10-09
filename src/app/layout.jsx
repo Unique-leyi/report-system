@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
  
   useEffect(() => {
     if(pathname === "/"){
-      router.push("/dashboard/reports");
+      router.replace("/dashboard/reports");
     }
   }, [pathname]);
 
