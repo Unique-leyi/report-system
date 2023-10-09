@@ -5,8 +5,20 @@ import AOS from 'aos';
 import 'aos/dist/aos.css'; 
 import { useEffect } from "react";
 import DashboardHeader from "../components/Dashboard/DashboardHeader";
+import { useEffect } from "react";
+import { usePathname, useRouter } from "next/navigation";
+
 
 export default function RootLayout({ children }) {
+
+  const pathname = usePathname();
+  const router = useRouter();
+ 
+  useEffect(() => {
+    if(pathname === "/"){
+      router.push("/dashboard/reports");
+    }
+  }, [pathname]);
 
   useEffect(() => {
     AOS.init();
