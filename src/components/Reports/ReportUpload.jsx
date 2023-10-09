@@ -21,17 +21,21 @@ import {
 } from '@chakra-ui/react';
 import classes from "../styles/reportupload.module.css";
 import { useState } from 'react';
-import MyDropzone from "./MyDropzone";
+import Dropzone from "./Dropzone";
 import Link from "next/link";
 import { RiArrowLeftSLine } from "react-icons/ri";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 
 
 const ReportUpload = () => {
     const [formData, setFormData] = useState({
         task_headline: "",
         task_summary: "",
-        task_date: "",
+        task_date: null,
         task_image: null,
+        task_tags: [],
     })
     
     const handleChange = (e) => {
@@ -41,9 +45,31 @@ const ReportUpload = () => {
         });
 
     }
+
+    const toggleTagBtns = (value) => {
+        setFormData((prevData) => {
+          const { task_tags } = prevData;
+          if (task_tags.includes(value)) {
+             //if it does exist, remove it
+            return {
+              ...prevData,
+              task_tags: task_tags.filter((tag) => tag !== value),
+            };
+          } else {
+            //if it does not exist, add it
+            return {
+              ...prevData,
+              task_tags: [...task_tags, value],
+            };
+          }
+        });
+      };
     return (
        <VStack sx={{
-        padding: "2.5rem 3rem !important",
+        padding: {
+            base: "1.5rem !important",
+            md: "2.5rem 3rem !important",
+        },
         }}>
              <Box mb={"0.5rem"} w={{ 
                     base: "100%",
@@ -69,12 +95,12 @@ const ReportUpload = () => {
                     marginTop:"0.5rem !important",
                 }}>
                    
-                <Card bg="transparent" className="!shadow-none" gap={18}>
+                <Card bg="transparent" className="!shadow-none" gap={2}>
 
                     <CardHeader>
                         <Stack>
                             <Flex w="100%" justify="center" align="center" direction="column" gap={4}>
-                                <Heading as="h5" className="!text-white !text-4xl !font-bold">
+                                <Heading as="h5" className="!text-white !text-2xl md:!text-4xl !font-bold">
                                     Upload task report
                                 </Heading>
                                 <Text className={classes.upload_text}>
@@ -111,38 +137,44 @@ const ReportUpload = () => {
                             <Box w="100%">
                                 <FormControl id="task-date">
                                     <FormLabel className="!text-white !mb-2 !text-sm !font-outfit">Select Date</FormLabel>
-                                    <Select name="task_date" onChange={handleChange} value={formData.task_date} placeholder="Select date" className=" !text-white !bg-[#0E1515] !border-[1px] !py-[10px] !px-[14px] !border-[rgba(255,255,255,0.08)]" _placeholder={{
-                                        fontSize: "12px",
-                                        fontFamily: "Outfit",
-                                        fontWeight: 300,
-                                    }}>
-                                        <option className="!text-sm !text-[rgba(255,255,255,0.08)]" value='option1'>Option 1</option>
-                                        <option className="!text-sm !text-[rgba(255,255,255,0.08)]" value='option2'>Option 2</option>
-                                        <option className="!text-sm !text-[rgba(255,255,255,0.08)]" value='option3'>Option 3</option>
-                                    </Select>
+                                    <DatePicker 
+                                        selected={formData.task_date} 
+                                        onChange={(date) => setFormData({...formData, task_date: date})}
+                                        closeOnScroll={(e) => e.target === document}
+                                        placeholderText="Select date"
+                                        className=" !text-white !bg-[#0E1515] !border-[1px] !py-[10px] !px-[14px] !border-[rgba(255,255,255,0.08)]" _placeholder={{
+                                            fontSize: "12px",
+                                            fontFamily: "Outfit",
+                                            fontWeight: 300,
+                                        }}
+                                    />
                                 </FormControl>
                             </Box>
 
                             <VStack spacing={10}>
                                 <Box display='flex' alignItems="center" gap="0.8rem">
-                                    <Button name="task-tag" className="!text-xs" border="1px solid var(--darkmode-strokes-tinted, rgba(125, 249, 255, 0.12))" borderRadius='full' color="white" sx={{
-                                        padding: "0.5rem !important",
+                                    <Button name="task-tag" className={`!text-xs ${
+                                        formData.task_tags.includes("design") ? "!border-blue-300": ""
+                                    } hover:!border-blue-300`} border="1px solid var(--darkmode-strokes-tinted, rgba(125, 249, 255, 0.12))" borderRadius='full' color="white" sx={{
+                                        padding: "0.3rem 0.5rem !important",
                                         backgroundColor: "var(--darkmode-bg-01, #0E1515) !important",
-                                    }}>
+                                    }} onClick={() => toggleTagBtns("design")}>
                                         Design
                                     </Button>
 
-                                    <Button name="task-tag" className="!text-xs" border="1px solid var(--darkmode-strokes-tinted, rgba(125, 249, 255, 0.12))" borderRadius='full' color="white" sx={{
-                                        padding: "0.5rem !important",
+                                    <Button name="task-tag" className={`!text-xs ${
+                                        formData.task_tags.includes("development") ? "!border-blue-300": ""
+                                    } hover:!border-blue-300`} border="1px solid var(--darkmode-strokes-tinted, rgba(125, 249, 255, 0.12))" borderRadius='full' color="white" sx={{
+                                        padding: "0.3rem 0.5rem !important",
                                         backgroundColor: "var(--darkmode-bg-01, #0E1515) !important",
-                                    }}>
+                                    }} onClick={() => toggleTagBtns("development")}>
                                         Development
                                     </Button>
                                 </Box>
                             </VStack>
 
                             <VStack spacing={10}>
-                                <MyDropzone/>   
+                                <Dropzone/>   
                             </VStack>
 
                             <Stack w="100%" spacing={10}>

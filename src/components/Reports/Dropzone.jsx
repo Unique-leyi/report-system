@@ -1,172 +1,91 @@
-"use client";
+"use client"
+import { Stack, Flex, Box, FormControl, Button, FormHelperText, Input } from "@chakra-ui/react";
+import { useDropzone } from "react-dropzone";
+import { useState, useCallback, useEffect } from "react";
+import { uploadDocs } from "../../../public/assets";
+import Image from "next/image";
+import { MdOutlineCancel } from "react-icons/md";
 
-import Image from 'next/image'
-import { useCallback, useEffect, useState } from 'react'
-import { useDropzone } from 'react-dropzone'
-import { FaXmark, FaArrowUpFromBracket } from "react-icons/fa6";
 
-
-const Dropzone = ({ className }) => {
-  const [files, setFiles] = useState([])
-  const [rejected, setRejected] = useState([])
-
-  const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
-    if (acceptedFiles?.length) {
-      setFiles(previousFiles => [
-        ...previousFiles,
-        ...acceptedFiles.map(file =>
-          Object.assign(file, { preview: URL.createObjectURL(file) })
-        )
-      ])
+const Dropzone = ({ name }) => {
+    const [files, setFiles] = useState([])
+    const [rejected, setRejected] = useState([])
+  
+    const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
+      if (acceptedFiles?.length <= 3) {
+        const newFiles = acceptedFiles.slice(0, 3 - files.length);
+        setFiles(previousFiles => [
+          ...previousFiles,
+          ...newFiles.map(file =>
+            Object.assign(file, { preview: URL.createObjectURL(file) })
+          )
+        ])
+      }
+  
+      if (rejectedFiles?.length) {
+        setRejected(previousFiles => [...previousFiles, ...rejectedFiles]);
+      }
+    }, [files])
+  
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({
+      accept: {
+        'image/*': []
+      },
+      maxSize: 1024 * 1000,
+      onDrop
+    });
+  
+    useEffect(() => {
+      // Revoke the data uris to avoid memory leaks
+      return () => files.forEach(file => URL.revokeObjectURL(file.preview));
+    }, [files])
+  
+    const removeFile = name => {
+      setFiles(files => files.filter(file => file.name !== name));
     }
+  
+ 
+    return (
+        <Flex 
+            justify="flex-start" 
+            align="flex-start" 
+            gap="1rem" 
+            direction="column"
+            className="container" 
+        >
+            <Box w="100%" {...getRootProps({ className: "dropzone" })}>
+                <FormControl id="task-image">
+                    <Flex w={{
+                      base: "19rem",
+                      sm: "30rem",
+                    }} justify="center" align="center" gap="1rem" direction="column"  className="!text-white !mb-2 !text-sm !font-outfit !bg-[#0E1515] !border-[1px] !py-12 !px-6 !border-[rgba(255,255,255,0.08)] !rounded-lg">
 
-    if (rejectedFiles?.length) {
-      setRejected(previousFiles => [...previousFiles, ...rejectedFiles])
-    }
-  }, [])
+                        <Input name={"task_image"} {...getInputProps()}/>
+                        <Image src={uploadDocs} alt="upload-document"/>
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    accept: {
-      'image/*': []
-    },
-    maxSize: 1024 * 1000,
-    onDrop
-  })
-
-  useEffect(() => {
-    // Revoke the data uris to avoid memory leaks
-    return () => files.forEach(file => URL.revokeObjectURL(file.preview))
-  }, [files])
-
-  const removeFile = name => {
-    setFiles(files => files.filter(file => file.name !== name))
-  }
-
-  const removeAll = () => {
-    setFiles([])
-    setRejected([])
-  }
-
-  const removeRejected = name => {
-    setRejected(files => files.filter(({ file }) => file.name !== name))
-  }
-
-  const handleSubmit = async e => {
-    e.preventDefault()
-
-    if (!files?.length) return
-
-    const formData = new FormData()
-    files.forEach(file => formData.append('file', file))
-    formData.append('upload_preset', 'friendsbook')
-
-    const URL = process.env.NEXT_PUBLIC_CLOUDINARY_URL
-    const data = await fetch(URL, {
-      method: 'POST',
-      body: formData
-    }).then(res => res.json())
-
-    console.log(data)
-  }
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <div
-        {...getRootProps({
-          className: className
-        })}
-      >
-        <input {...getInputProps()} />
-        <div className='flex flex-col items-center justify-center gap-4'>
-          <FaArrowUpFromBracket className='w-5 h-5 fill-current' />
-          {isDragActive ? (
-            <p>Drop the files here ...</p>
-          ) : (
-            <p>Drag & drop files here, or click to select files</p>
-          )}
-        </div>
-      </div>
-
-      {/* Preview */}
-      <section className='mt-10'>
-        <div className='flex gap-4'>
-          <h2 className='title text-3xl font-semibold'>Preview</h2>
-          <button
-            type='button'
-            onClick={removeAll}
-            className='mt-1 text-[12px] uppercase tracking-wider font-bold text-neutral-500 border border-secondary-400 rounded-md px-3 hover:bg-secondary-400 hover:text-white transition-colors'
-          >
-            Remove all files
-          </button>
-          <button
-            type='submit'
-            className='ml-auto mt-1 text-[12px] uppercase tracking-wider font-bold text-neutral-500 border border-purple-400 rounded-md px-3 hover:bg-purple-400 hover:text-white transition-colors'
-          >
-            Upload to Cloudinary
-          </button>
-        </div>
-
-        {/* Accepted files */}
-        <h3 className='title text-lg font-semibold text-neutral-600 mt-10 border-b pb-3'>
-          Accepted Files
-        </h3>
-        <ul className='mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-10'>
-          {files.map(file => (
-            <li key={file.name} className='relative h-32 rounded-md shadow-lg'>
-              <Image
-                src={file.preview}
-                alt={file.name}
-                width={100}
-                height={100}
-                onLoad={() => {
-                  URL.revokeObjectURL(file.preview)
-                }}
-                className='h-full w-full object-contain rounded-md'
-              />
-              <button
-                type='button'
-                className='w-7 h-7 border border-secondary-400 bg-secondary-400 rounded-full flex justify-center items-center absolute -top-3 -right-3 hover:bg-white transition-colors'
-                onClick={() => removeFile(file.name)}
-              >
-                <FaXmark className='w-5 h-5 fill-white hover:fill-secondary-400 transition-colors' />
-              </button>
-              <p className='mt-2 text-neutral-500 text-[12px] font-medium'>
-                {file.name}
-              </p>
-            </li>
-          ))}
-        </ul>
-
-        {/* Rejected Files */}
-        <h3 className='title text-lg font-semibold text-neutral-600 mt-24 border-b pb-3'>
-          Rejected Files
-        </h3>
-        <ul className='mt-6 flex flex-col'>
-          {rejected.map(({ file, errors }) => (
-            <li key={file.name} className='flex items-start justify-between'>
-              <div>
-                <p className='mt-2 text-neutral-500 text-sm font-medium'>
-                  {file.name}
-                </p>
-                <ul className='text-[12px] text-red-400'>
-                  {errors.map(error => (
-                    <li key={error.code}>{error.message}</li>
-                  ))}
-                </ul>
-              </div>
-              <button
-                type='button'
-                className='mt-1 py-1 text-[12px] uppercase tracking-wider font-bold text-neutral-500 border border-secondary-400 rounded-md px-3 hover:bg-secondary-400 hover:text-white transition-colors'
-                onClick={() => removeRejected(file.name)}
-              >
-                remove
-              </button>
-            </li>
-          ))}
-        </ul>
-      </section>
-    </form>
-  )
+                    </Flex>
+                    <Flex justify="space-between" align="center" gap="0rem">
+                      <FormHelperText className="!text-white !text-sm">
+                          <b className="!text-red-600 !mx-2">*</b>
+                          Maximum of 3 PNGs
+                      </FormHelperText>
+                      <Box spacing={2}>
+                        {files.length > 0 &&
+                          files.map((file, i) => (
+                            <Button key={file.name} onClick={() => removeFile(file.name)} rightIcon={<MdOutlineCancel/>} iconSpacing={"0.5rem !important"} className="!text-xs !py-[0.3px] !px-2"  border="1px solid var(--darkmode-strokes-tinted, rgba(125, 249, 255, 0.12))" borderRadius='full' color="white" 
+                              sx={{
+                                  backgroundColor: "var(--darkmode-bg-01, #0E1515) !important",
+                              }}>
+                                PNG{i+1}
+                            </Button>
+                          )) 
+                        }
+                      </Box>
+                    </Flex>
+                </FormControl>
+            </Box>
+        </Flex>
+    )
 }
 
 export default Dropzone

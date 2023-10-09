@@ -44,9 +44,10 @@ const Reports = () => {
             padding: "4rem 3rem !important",
         }}>
             <Grid templateColumns={{
-                base: "repeat(1, 1fr)",
-                sm: "repeat(3, 1fr)",
-                md: "repeat(4, 1fr)",
+                base: "repeat(1, 1fr) !important",
+                sm: "repeat(2, 1fr) !important",
+                md: "repeat(3, 1fr) !important",
+                lg: "repeat(4, 1fr) !important",
             }} 
             gap={6}>
                 { currentItems &&

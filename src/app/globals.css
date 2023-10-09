@@ -20,6 +20,14 @@ a {
 }
 
 
+.swiper-pagination-bullets {
+  border-radius: 100px;
+  background: rgba(0, 0, 0, 0.20);
+  backdrop-filter: blur(7px);
+  width: 20% !important;
+  margin-inline: auto !important;
+  left: 40% !important;
+}
 
 .swiper-pagination .swiper-pagination-bullet{
   width: 10px !important;
@@ -27,3 +35,19 @@ a {
   margin: 0 8px !important;
   background-color: white !important;
 }
+
+
+.react-datepicker {
+  font-family: unset;
+  font-size: 0.9rem;
+}
+
+.react-datepicker-wrapper,
+.react-datepicker__input-container {
+  @apply !block;
+}
+
+.react-datepicker__input-container > input {
+  @apply w-full h-full outline-0 !text-white !bg-[#0E1515] !border-[1px] !py-[10px] !px-[14px] !border-[rgba(255,255,255,0.08)] !rounded-lg;
+}
+

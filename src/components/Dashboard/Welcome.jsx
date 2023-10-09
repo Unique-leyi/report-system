@@ -49,7 +49,10 @@ const Welcome = () => {
                     </Box>
                  
                         <Box w="100%">
-                            <Flex justify="around" align="center" gap={4}>
+                            <Flex justify="flex-start" align="center" wrap={{
+                                base: "wrap",
+                                md: "nowrap",
+                            }} gap={4}>
                                 <Heading as="h5" className="!text-white !text-lg !font-bold">
                                     2023
                                 </Heading>

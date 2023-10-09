@@ -20,7 +20,7 @@ const DashboardBar = () => {
                         </Link>
                     </Box>
 
-                    <Box w="100%" className="!pl-3">
+                    <Box w="100%" className="!pl-3 !hidden lg:!block">
                         <Heading as="h3" className="!text-white !text-xl !font-normal">
                             Task Report Dashboard
                         </Heading>
