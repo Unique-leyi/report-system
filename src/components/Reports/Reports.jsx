@@ -4,13 +4,11 @@ import ReportCard from "./ReportCard";
 import ReportsPaginate from "./ReportsPaginate";
 import { useState } from 'react';
 import { useReportContext } from '../../context/ReportContext';
+import { data } from "../../api/data";
 
 const Reports = () => {
 
   const { onOpen } = useReportContext();
-
-  const cardData = Array.from({ length: 100 }, (_, index) => index);
-
   const [ openModal, setOpenModal ] = useState(0);
 
   const handleOpenModal = (value) => {
@@ -24,15 +22,15 @@ const Reports = () => {
    //Pagination
 
   const [currentPage, setCurrentPage] = useState(0); 
-  const itemsPerPage = 20; 
-  const totalItems = 100; 
+  const itemsPerPage = 12; 
+  const totalItems = data.length; 
 
   const pageCount = Math.ceil(totalItems / itemsPerPage);
 
   const [itemOffset, setItemOffset] = useState(0);
 
   const endOffset = itemOffset + itemsPerPage;
-  const currentItems = cardData.slice(itemOffset, endOffset);
+  const currentItems = data.slice(itemOffset, endOffset);
  
   const handlePageClick = (event) => {
     const newOffset = (event.selected * itemsPerPage) % items.length;

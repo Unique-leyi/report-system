@@ -14,7 +14,7 @@ import {
 import Image from "next/image";
 import { avatar, imageOne, imageTwo } from "../../../public/assets"
 
-const ReportCard = ({ handleOpen }) => {
+const ReportCard = ({ handleOpen, task_title, task_tags, task_images, task_date, task_author }) => {
     return (
         <Card data-aos="zoom-in" data-aos-duration="2000" gap={4} sx={{
             borderRadius: "24px",
@@ -39,12 +39,12 @@ const ReportCard = ({ handleOpen }) => {
                         <Stack>
                             <Box w="100%">
                                 <Heading as="h6" color="var(--white-100, #FFF)" className="!text-white !font-medium !text-sm">
-                                    17 Oct, 2023
+                                   { task_date }
                                 </Heading>
-                                <Text className="!text-sm !font-normal" sx={{
+                                <Text className="!text-xs !font-normal" sx={{
                                     color: "var(--darkmode-text-grey, #A5B3B3)",
                                 }}>
-                                    Uploaded by: Jason Charles
+                                    Uploaded by: { task_author }
                                 </Text>
                             </Box>
                         </Stack>
@@ -63,7 +63,7 @@ const ReportCard = ({ handleOpen }) => {
                         <Stack>
                             <Box w="100%">
                                 <Heading as="h4" color="var(--white-100, #FFF)" className="!text-white !font-bold !text-2xl !mt-3">
-                                    Wallet Navigation
+                                    { task_title }
                                 </Heading>
                             </Box>
                         </Stack>
@@ -75,44 +75,35 @@ const ReportCard = ({ handleOpen }) => {
             <CardBody>
                 <VStack spacing={10}>
                     <Box display='flex' alignItems="center" gap="0.8rem">
-                        <Badge borderRadius='full' backgroundColor={"var(--darkmode-bg-01, #0E1515);"} color="white" sx={{
-                            padding: "1rem !important",
-                        }}>
-                            Design
-                        </Badge>
-
-                        <Badge borderRadius='full' backgroundColor={"var(--darkmode-bg-01, #0E1515);"} color="white" sx={{
-                            padding: "1rem !important",
-                        }}>
-                            Development
-                        </Badge>
+                        {
+                            task_tags.map((tag, i) => (
+                                <Badge key={i} borderRadius='full' backgroundColor={"var(--darkmode-bg-01, #0E1515);"} color="white" sx={{
+                                    padding: "1rem !important",
+                                }}>
+                                    { tag }
+                                </Badge>
+                            ))
+                        }
+                        
                     </Box>
                 </VStack>
             </CardBody>
 
             <CardFooter>
                 <Stack direction='row'>
-                    <Image
-                        width={100}
-                        height={100}
-                        priority={true}
-                        src={imageOne}
-                        alt='report-image'
-                    />
-                    <Image
-                        width={100}
-                        height={100}
-                        priority={true}
-                        src={imageTwo}
-                        alt='report-image'
-                    />
-                    <Image 
-                        width={100}
-                        height={100}
-                        priority={true}
-                        src={imageOne}
-                        alt='report-image'
-                    />
+                    {
+                        task_images.map((image, i) => (
+                            <Image
+                                key={i}
+                                width={100}
+                                height={100}
+                                priority={true}
+                                src={image}
+                                alt='report-image'
+                            />
+                        ))
+                    }                 
+                   
                 </Stack>
             </CardFooter>
              
