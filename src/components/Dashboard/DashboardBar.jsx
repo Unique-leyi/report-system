@@ -14,7 +14,7 @@ const DashboardBar = () => {
             } }}>
 
                 <Box w="100%" className="!flex !justify-between !items-center !gap-4">
-                    <Box w="100%" className="!py-5 !px-8" borderRight={"1px solid rgba(255, 255, 255, 0.08)"}>
+                    <Box w="100%" className="!py-5 !px-0 lg:!px-8" borderRight={"1px solid rgba(255, 255, 255, 0.08)"}>
                         <Link href={"/"} className="!uppercase !text-white !font-inter">
                             Faraday logo
                         </Link>

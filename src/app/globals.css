@@ -24,9 +24,8 @@ a {
   border-radius: 100px;
   background: rgba(0, 0, 0, 0.20);
   backdrop-filter: blur(7px);
-  width: 20% !important;
   margin-inline: auto !important;
-  left: 40% !important;
+  @apply lg:!left-[40%] !left-[35%] !w-[25%] lg:!w-[20%]
 }
 
 .swiper-pagination .swiper-pagination-bullet{

@@ -16,19 +16,26 @@ import { avatar } from "../../../public/assets"
 
 const ReportCard = ({ handleOpen, task_title, task_tags, task_images, task_date, task_author }) => {
     return (
-        <Card data-aos="zoom-in" data-aos-duration="2000" gap={4} sx={{
-            borderRadius: "24px",
-            border: "1px solid var(--darkmode-strokes-tinted, rgba(125, 249, 255, 0.12))",
-            backgroundColor: "var(--darkmode-bg-02, #141F1F)",
-            padding: "2rem 1rem !important",
-        }} onClick={handleOpen} className="!cursor-pointer hover:!ease-in hover:!duration-100 hover:!scale-105">
+        <Card data-aos="zoom-in" data-aos-duration="2000" gap={4} 
+            sx={{
+                borderRadius: "24px",
+                border: "1px solid var(--darkmode-strokes-tinted, rgba(125, 249, 255, 0.12))",
+                backgroundColor: "var(--darkmode-bg-02, #141F1F)",
+                padding: "2rem 1rem !important",
+            }} 
+            onClick={handleOpen} 
+            className="!cursor-pointer hover:!ease-in hover:!duration-100 hover:!scale-105"
+        >
            <CardHeader>
                 <Stack spacing={4}>
                     <Box w="100%" sx={{ 
                         display: "flex !important",
-                        justifyContent: "space-between !important",
+                        justifyContent: "center",
                         alignItems: "center",
-                        gap: "1rem",
+                        gap: {
+                            base: "1.2rem !important",
+                            md: "1rem !important"
+                        },
                      }}>
                         <Stack>
                             <Box w="100%">
@@ -62,7 +69,7 @@ const ReportCard = ({ handleOpen, task_title, task_tags, task_images, task_date,
 
                         <Stack>
                             <Box w="100%">
-                                <Heading as="h4" color="var(--white-100, #FFF)" className="!text-white !font-bold !text-2xl !mt-3">
+                                <Heading as="h4" color="var(--white-100, #FFF)" className="!text-white !font-bold !text-xl lg:!text-2xl !mt-3">
                                     { task_title }
                                 </Heading>
                             </Box>

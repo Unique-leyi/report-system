@@ -20,9 +20,9 @@ const Welcome = () => {
   
     return (
         <Stack w="100%">
-             <SimpleGrid columns={{ base: 1, sm: 2 }} spacing={10} sx={{ padding: {
-                base: "2rem !important",
-                sm: "1rem 4rem !important"
+             <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10} sx={{ padding: {
+                base: "2rem 0.5rem !important",
+                md: "1rem 4rem !important"
             } }}>
                 <VStack w={"100%"} sx={{ padding: "2rem !important" }} gap={10}> 
                     <Box w="100%" className="!flex !justify-start !items-start !flex-col !gap-3">
@@ -52,7 +52,7 @@ const Welcome = () => {
                                 md: "nowrap",
                             }} gap={4}>
                                 <Heading as="h5" className="!text-white !text-lg !font-bold">
-                                    2023
+                                   October 2023
                                 </Heading>
 
                                 <Button leftIcon={<MdKeyboardArrowLeft w={10} h={10}/>} rightIcon={<MdKeyboardArrowRight/>} className="!uppercase !rounded-full !py-[15px] !px-[12px] text-xs" sx={{
@@ -82,7 +82,11 @@ const Welcome = () => {
 
                 <VStack>
                    <Box w="100%" sx={{
-                        display: "flex !important",
+                        display: {
+                            base: "none !important",
+                            lg: "flex !important",
+                        },
+
                         justifyContent: {
                             base: "center !important",
                             sm: "flex-end !important",
