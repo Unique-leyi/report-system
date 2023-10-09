@@ -8,7 +8,7 @@ import { MdOutlineCancel } from "react-icons/md";
 
 
 const Dropzone = ({ name }) => {
-    const [files, setFiles] = useState([])
+    const [files, setFiles] = useState([]);
     const [rejected, setRejected] = useState([]);
   
     const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
