@@ -17,7 +17,7 @@ export default function RootLayout({ children }) {
     if(pathname === "/"){
       router.replace("/dashboard/reports");
     }
-  }, [pathname]);
+  }, [pathname, router]);
 
   useEffect(() => {
     AOS.init();
