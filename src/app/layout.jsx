@@ -5,7 +5,6 @@ import AOS from 'aos';
 import 'aos/dist/aos.css'; 
 import { useEffect } from "react";
 import DashboardHeader from "../components/Dashboard/DashboardHeader";
-import { useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
 
