@@ -3,13 +3,11 @@
 import { 
     Stack, 
     VStack, 
-    HStack, 
     SimpleGrid, 
     Box, 
     Heading, 
     Button,
     Flex,
-    Spacer, 
 } from '@chakra-ui/react';
 import classes from "../styles/welcome.module.css";
 import Image from "next/image";

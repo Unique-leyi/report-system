@@ -39,7 +39,7 @@ const Dropzone = ({ name }) => {
       return () => files.forEach(file => URL.revokeObjectURL(file.preview));
     }, [files])
   
-    const removeFile = name => {
+    const removeFile = (name) => {
       setFiles(files => files.filter(file => file.name !== name));
     }
   
@@ -53,7 +53,7 @@ const Dropzone = ({ name }) => {
             className="container" 
         >
             <Box w="100%" {...getRootProps({ className: "dropzone" })}>
-                <FormControl id="task-image">
+                <FormControl id="task_image">
                     <Flex w={{
                       base: "19rem",
                       sm: "30rem",

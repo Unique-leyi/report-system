@@ -6,18 +6,14 @@ import {
     Card, 
     CardHeader, 
     CardBody, 
-    CardFooter, 
     Button,
     FormControl, 
     FormLabel, 
     Input,
     Textarea,
-    Select, 
-    InputGroup, 
     Heading, 
     Text, 
-    Badge,
-    Flex 
+    Flex ,
 } from '@chakra-ui/react';
 import classes from "../styles/reportupload.module.css";
 import { useState } from 'react';
@@ -189,9 +185,9 @@ const ReportUpload = () => {
                                 </Box>
                             </VStack>
 
-                            <VStack spacing={10}>
+                            {/* <VStack spacing={10}>
                                 <Dropzone name={"task_images"}/>   
-                            </VStack>
+                            </VStack> */}
 
                             <Stack w="100%" spacing={10}>
                                 <Button

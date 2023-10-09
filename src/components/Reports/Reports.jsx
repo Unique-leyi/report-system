@@ -1,5 +1,5 @@
 "use client";
-import { Stack, VStack, Grid, GridItem } from '@chakra-ui/react';
+import { Stack, Grid, GridItem } from '@chakra-ui/react';
 import ReportCard from "./ReportCard";
 import ReportsPaginate from "./ReportsPaginate";
 import { useState } from 'react';

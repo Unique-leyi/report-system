@@ -25,14 +25,14 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
-          <body>
-          <Providers>
-            <DashboardHeader>
-                {children}
-            </DashboardHeader>
-          </Providers>
-          </body>
-        </html>
+      <body>
+      <Providers>
+        <DashboardHeader>
+            {children}
+        </DashboardHeader>
+      </Providers>
+      </body>
+    </html>
 
   )
 }

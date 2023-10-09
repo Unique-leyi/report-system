@@ -12,7 +12,7 @@ import {
     Badge, 
 } from '@chakra-ui/react';
 import Image from "next/image";
-import { avatar, imageOne, imageTwo } from "../../../public/assets"
+import { avatar } from "../../../public/assets"
 
 const ReportCard = ({ handleOpen, task_title, task_tags, task_images, task_date, task_author }) => {
     return (
