@@ -33,16 +33,33 @@ const ReportUpload = () => {
     const [formData, setFormData] = useState({
         task_headline: "",
         task_summary: "",
-        task_date: null,
-        task_image: null,
+        task_date: "",
+        task_images: [],
         task_tags: [],
-    })
+    });
+
+    const [isFormFilled, setIsFormFilled] = useState(false);
+    const areAllFieldsFilled = () => {
+        const { task_headline, task_summary, task_date, task_tags, task_image } = formData;
+        return (
+          task_headline.trim() !== '' &&
+          task_summary.trim() !== '' &&
+          task_date.trim() !== '' &&
+          task_tags.length > 0 &&
+          task_image.length > 0
+        );
+      };
+      
     
     const handleChange = (e) => {
         setFormData({
             ...formData,
             [e.target.name]: e.target.value,
         });
+
+        setIsFormFilled(areAllFieldsFilled());
+
+        console.log(formData);
 
     }
 
@@ -153,7 +170,7 @@ const ReportUpload = () => {
 
                             <VStack spacing={10}>
                                 <Box display='flex' alignItems="center" gap="0.8rem">
-                                    <Button name="task-tag" className={`!text-xs ${
+                                    <Button name={"task_tags"} value={"design"} className={`!text-xs ${
                                         formData.task_tags.includes("design") ? "!border-blue-300": ""
                                     } hover:!border-blue-300`} border="1px solid var(--darkmode-strokes-tinted, rgba(125, 249, 255, 0.12))" borderRadius='full' color="white" sx={{
                                         padding: "0.3rem 0.5rem !important",
@@ -162,7 +179,7 @@ const ReportUpload = () => {
                                         Design
                                     </Button>
 
-                                    <Button name="task-tag" className={`!text-xs ${
+                                    <Button name={"task_tags"} value={"development"} className={`!text-xs ${
                                         formData.task_tags.includes("development") ? "!border-blue-300": ""
                                     } hover:!border-blue-300`} border="1px solid var(--darkmode-strokes-tinted, rgba(125, 249, 255, 0.12))" borderRadius='full' color="white" sx={{
                                         padding: "0.3rem 0.5rem !important",
@@ -174,15 +191,16 @@ const ReportUpload = () => {
                             </VStack>
 
                             <VStack spacing={10}>
-                                <Dropzone/>   
+                                <Dropzone name={formData.task_images}/>   
                             </VStack>
 
                             <Stack w="100%" spacing={10}>
                                 <Button
-                                    className="!bg-farash hover:!bg-farblue py-[10px] px-4 text-primary text-center font-semibold !rounded-full"
+                                    className={` ${!isFormFilled ? "!bg-farash " : "!bg-farblue"} !bg-farash hover:!bg-farblue py-[10px] px-4 text-primary text-center font-semibold !rounded-full`}
                                     loadingText="Submitting...."
                                     size="md"
                                     width={"100%"}
+                                    isDisabled={!isFormFilled}
                                 >
                                 Upload Report
                                 </Button>

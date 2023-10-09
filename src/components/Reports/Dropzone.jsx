@@ -9,7 +9,7 @@ import { MdOutlineCancel } from "react-icons/md";
 
 const Dropzone = ({ name }) => {
     const [files, setFiles] = useState([])
-    const [rejected, setRejected] = useState([])
+    const [rejected, setRejected] = useState([]);
   
     const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
       if (acceptedFiles?.length <= 3) {
@@ -31,12 +31,11 @@ const Dropzone = ({ name }) => {
       accept: {
         'image/*': []
       },
-      maxSize: 1024 * 1000,
+      maxSize: 1024 * 1000,  //not more than 1MB
       onDrop
     });
   
     useEffect(() => {
-      // Revoke the data uris to avoid memory leaks
       return () => files.forEach(file => URL.revokeObjectURL(file.preview));
     }, [files])
   
@@ -60,7 +59,7 @@ const Dropzone = ({ name }) => {
                       sm: "30rem",
                     }} justify="center" align="center" gap="1rem" direction="column"  className="!text-white !mb-2 !text-sm !font-outfit !bg-[#0E1515] !border-[1px] !py-12 !px-6 !border-[rgba(255,255,255,0.08)] !rounded-lg">
 
-                        <Input name={"task_image"} {...getInputProps()}/>
+                        <Input name={name} {...getInputProps()}/>
                         <Image src={uploadDocs} alt="upload-document"/>
 
                     </Flex>
