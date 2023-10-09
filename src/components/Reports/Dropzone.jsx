@@ -25,7 +25,7 @@ const Dropzone = ({ name }) => {
       if (rejectedFiles?.length) {
         setRejected(previousFiles => [...previousFiles, ...rejectedFiles]);
       }
-    }, [files])
+    }, [])
   
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
       accept: {
