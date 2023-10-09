@@ -23,13 +23,17 @@ import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import { avatar, imageOne } from "../../../public/assets/";
+import { avatar, imageOne, imageTwo } from "../../../public/assets/";
 import classes from "../styles/reportdetails.module.css";
 
 
 const ReportDetails = ({ handleIsOpen, handleOnClose }) => {
 
-    const images = Array.from({ length: 3 }, (_, index) => index);
+    const images = [
+        imageOne,
+        imageTwo,
+        imageOne
+    ]
 
     return (
         <Modal isOpen={handleIsOpen} onClose={handleOnClose} sx={{
@@ -83,14 +87,14 @@ const ReportDetails = ({ handleIsOpen, handleOnClose }) => {
                     images.map((image, i) => (
                         <SwiperSlide key={i}>
                             <Box className={classes.image_box}>
-                                <Image 
-                                    fill
+                                <Image
+                                    // fill 
                                     style={{
                                         objectFit: "cover",
                                     }}
-                                    sizes="(max-width: 768px) 100vw"
-                                    {...image} 
-                                    src={imageOne} 
+                                    width={1000}
+                                    height={500}
+                                    src={image} 
                                     alt="report-images" 
                                     priority={true}
                                 /> 

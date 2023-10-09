@@ -190,7 +190,7 @@ const ReportUpload = () => {
                             </VStack>
 
                             <VStack spacing={10}>
-                                <Dropzone name={formData.task_images}/>   
+                                <Dropzone name={"task_images"}/>   
                             </VStack>
 
                             <Stack w="100%" spacing={10}>
