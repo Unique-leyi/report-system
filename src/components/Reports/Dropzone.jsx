@@ -12,8 +12,8 @@ const Dropzone = ({ name }) => {
     const [rejected, setRejected] = useState([]);
   
     const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
-      if (acceptedFiles?.length <= 3) {
-        const newFiles = acceptedFiles.slice(0, 3 - files.length);
+      if (acceptedFiles && acceptedFiles?.length <= 3) {
+        const newFiles = acceptedFiles?.slice(0, 3 - files.length);
         setFiles(previousFiles => [
           ...previousFiles,
           ...newFiles.map(file =>
@@ -22,7 +22,7 @@ const Dropzone = ({ name }) => {
         ])
       }
   
-      if (rejectedFiles?.length) {
+      if (rejectedFiles && rejectedFiles?.length) {
         setRejected(previousFiles => [...previousFiles, ...rejectedFiles]);
       }
     }, [])

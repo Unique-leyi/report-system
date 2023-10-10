@@ -22,7 +22,7 @@ const Welcome = () => {
         <Stack w="100%">
              <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10} sx={{ padding: {
                 base: "2rem 0.5rem !important",
-                md: "1rem 4rem !important"
+                md: "1rem 2rem !important"
             } }}>
                 <VStack w={"100%"} sx={{ padding: "2rem !important" }} gap={10}> 
                     <Box w="100%" className="!flex !justify-start !items-start !flex-col !gap-3">
@@ -50,30 +50,40 @@ const Welcome = () => {
                             <Flex justify="flex-start" align="center" wrap={{
                                 base: "wrap",
                                 md: "nowrap",
-                            }} gap={4}>
-                                <Heading as="h5" className="!text-white !text-lg !font-bold">
-                                   October 2023
-                                </Heading>
+                            }} gap={{
+                                base: "1rem !important",
+                                md: "0.3rem !important",
+                            }}>
+                                <Stack w="100%">
+                                    <Heading as="h5" className="!text-white !text-lg !font-bold">
+                                    October 2023
+                                    </Heading>
+                                </Stack>
+                                
+                                <Stack w="100%" direction={"row"} justify="flex-start" align="center">
+                                    <Button leftIcon={<MdKeyboardArrowLeft w={10} h={10}/>} rightIcon={<MdKeyboardArrowRight/>} className="!w-full lg:!w-[initial] !uppercase !rounded-full !py-[15px] !px-[12px] text-xs" sx={{
+                                        border: "1px solid var(--white-8, rgba(255, 255, 255, 0.08))",
+                                        backgroundColor: "#1C2B2B !important",
+                                        color: "white",
+                                    }}>
+                                        all
+                                    </Button>
 
-                                <Button leftIcon={<MdKeyboardArrowLeft w={10} h={10}/>} rightIcon={<MdKeyboardArrowRight/>} className="!uppercase !rounded-full !py-[15px] !px-[12px] text-xs" sx={{
-                                    border: "1px solid var(--white-8, rgba(255, 255, 255, 0.08))",
-                                    backgroundColor: "#1C2B2B !important",
-                                    color: "white",
-                                }}>
-                                    all
-                                </Button>
+                                    <Button leftIcon={<MdKeyboardArrowLeft/>} rightIcon={<MdKeyboardArrowRight/>} className="!w-full lg:!w-[initial] !uppercase !rounded-full !py-[15px] !px-[12px] text-xs" sx={{
+                                        border: "1px solid var(--white-8, rgba(255, 255, 255, 0.08))",
+                                        backgroundColor: "#1C2B2B !important",
+                                        color: "white",
+                                    }}>
+                                        all
+                                    </Button>
 
-                                <Button leftIcon={<MdKeyboardArrowLeft/>} rightIcon={<MdKeyboardArrowRight/>} className="!uppercase !rounded-full !py-[15px] !px-[12px] text-xs" sx={{
-                                    border: "1px solid var(--white-8, rgba(255, 255, 255, 0.08))",
-                                    backgroundColor: "#1C2B2B !important",
-                                    color: "white",
-                                }}>
-                                    all
-                                </Button>
+                                </Stack>
 
-                                <Link href={"/dashboard/report-upload"} className="!bg-farblue !rounded-full font-medium !py-3 !px-7">
-                                    Upload Report
-                                </Link>
+                                <Stack w="100%">
+                                    <Link href={"/dashboard/report-upload"} className="!bg-farblue !rounded-full !w-full !text-center font-medium !py-3 !px-7">
+                                        Upload Report
+                                    </Link>
+                                </Stack>
                             </Flex>
 
                         </Box>

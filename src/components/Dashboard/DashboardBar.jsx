@@ -14,13 +14,13 @@ const DashboardBar = () => {
             } }}>
 
                 <Box w="100%" className="!flex !justify-between !items-center !gap-4">
-                    <Box w="100%" className="!py-5 !px-0 lg:!px-8" borderRight={"1px solid rgba(255, 255, 255, 0.08)"}>
+                    <Box w="100%" className="!hidden lg:!block !py-5 !px-0 lg:!px-8" borderRight={"1px solid rgba(255, 255, 255, 0.08)"}>
                         <Link href={"/"} className="!uppercase !text-white !font-inter">
                             Faraday logo
                         </Link>
                     </Box>
 
-                    <Box w="100%" className="!pl-3 !hidden lg:!block">
+                    <Box w="100%" className="lg:!pl-3">
                         <Heading as="h3" className="!text-white !text-xl !font-normal">
                             Task Report Dashboard
                         </Heading>
@@ -28,7 +28,7 @@ const DashboardBar = () => {
 
                 </Box>
 
-                <Box w="100%" className="!py-4 !px-8 !flex !justify-end !items-end">
+                <Box w="100%" className="!py-4 lg:!px-8 !flex !justify-end !items-end">
                     <Avatar>
                         <AvatarBadge boxSize='0.9em' bg='green.200'/>
                     </Avatar>

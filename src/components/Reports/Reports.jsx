@@ -39,7 +39,10 @@ const Reports = () => {
     
     return (
         <Stack spacing={6} sx={{
-            padding: "4rem 3rem !important",
+            padding: {
+              base: "2rem 1.4rem !important",
+              md: "4rem 3rem !important"
+            },
         }}>
             <Grid templateColumns={{
                 base: "repeat(1, 1fr) !important",

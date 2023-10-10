@@ -1,10 +1,19 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     eslint: {
-        // Warning: This allows production builds to successfully complete even if
-        // your project has ESLint errors.
-        ignoreDuringBuilds: true,
-      },
-}
+      ignoreDuringBuilds: true,
+    },
 
-module.exports = nextConfig
+    experimental: {
+        appDir: true,
+        serverComponentsExternalPackages: ['bcrypt', 'fs'],
+    },
+
+    webpack: (config) => {
+        config.externals = [...config.externals, 'bcrypt', 'fs'];
+        return config;
+    },
+  };
+  
+  module.exports = nextConfig;
+  

@@ -36,7 +36,7 @@ const ReportDetails = ({ handleIsOpen, handleOnClose }) => {
     ]
 
     return (
-        <Modal isOpen={handleIsOpen} onClose={handleOnClose} sx={{
+        <Modal blockScrollOnMount={false} isOpen={handleIsOpen} onClose={handleOnClose} sx={{
             overflow: "hidden !important",
         }}>
        
@@ -45,10 +45,27 @@ const ReportDetails = ({ handleIsOpen, handleOnClose }) => {
             data-aos="zoom-in"
             data-aos-duration="500"
             sx={{
-                borderRadius: "24px !important",
+                borderRadius: {
+                    base: "24px 24px 0 0 !important",
+                    lg: "24px !important",
+                },
                 border: "1px solid var(--darkmode-strokes-tinted, rgba(125, 249, 255, 0.12)) !important",
                 backgroundColor: "var(--darkmode-bg-02, #141F1F)",
                 marginBlock: "8rem !important",
+                position: {
+                    base: "fixed !important",
+                    lg: "relative !important",
+                },
+
+                bottom: {
+                    base: "0% !important",
+                    lg: "-20% !important",
+                },
+
+                marginBlock: {
+                    base: "0 !important",
+                    lg: "8px !important"
+                }
             }}
         >
 
@@ -156,12 +173,27 @@ const ReportDetails = ({ handleIsOpen, handleOnClose }) => {
 
           <ModalFooter>
             <Stack w="100%" spacing={4}>
-                <Flex justify={"space-between"} align={"center"} gap={4} >
+                <Flex justify={{
+                    base: "flex-start",
+                    lg: "space-between",
+                }} align={{
+                    base: "flex-start",
+                    lg: "center"
+                }} gap={{
+                    base: 1,
+                    lg: 4,
+                }} direction={{
+                    base: "column",
+                    md: "row",
+                }}>
                     <Box sx={{ 
                             display: "flex !important",
                             justifyContent: "space-between !important",
                             alignItems: "center !important",
-                            gap: "1rem",
+                            gap: {
+                                base: "0.4rem",
+                                lg: "1rem",
+                            },
                             padding: "1rem !important",
                     }}
                     >
@@ -185,8 +217,16 @@ const ReportDetails = ({ handleIsOpen, handleOnClose }) => {
                         </Stack>
                     </Box>
 
-                    <Box>
-                        <Button iconSpacing={"0.5rem !important"} leftIcon={<TbEdit/>} className="!bg-farblue !py-6 !px-4 !mx-3 !rounded-full" sx={{
+                    <Box w={{
+                        base: "100%",
+                        lg: "initial"
+                    }} sx={{
+                        padding: {
+                            base: "4px 6px !important",
+                            lg: "0 !important",
+                        }
+                    }}>
+                        <Button iconSpacing={"0.5rem !important"} leftIcon={<TbEdit/>} className="!bg-farblue !w-full lg:!w-[initial] !py-6 !px-4 lg:!mx-3 !rounded-full" sx={{
                             border: "1px solid var(--white-8, rgba(255, 255, 255, 0.08)) !important",
                             '.chakra-button__icon *': { fontSize: "1.6rem" },
                         }}>

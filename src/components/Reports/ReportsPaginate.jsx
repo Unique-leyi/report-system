@@ -34,7 +34,10 @@ export const NextBtn = () => {
 const ReportsPagination = ({ pageCount, onPageChange, initialPage = 0 }) => {
   return (
     <VStack data-aos="fade-up" data-aos-duration="1000" sx={{
-        marginTop: "4rem !important"
+        marginTop: {
+            base: "0.4rem !important",
+            md: "4rem !important"
+        }
     }}>
         <ReactPaginate
           previousLabel={<PreviousBtn/>}
@@ -47,7 +50,7 @@ const ReportsPagination = ({ pageCount, onPageChange, initialPage = 0 }) => {
           pageRangeDisplayed={6}
           onPageChange={onPageChange}
           forcePage={initialPage}
-          containerClassName={"!pt-4 flex justify-center items-center gap-4 my-4 !max-w-[60%] !mx-auto !w-full border-t-[1px] border-t-solid border-[var(--white-50, rgba(255, 255, 255, 0.50))]"}
+          containerClassName={"lg:!pt-4 flex justify-center items-center gap-4 lg:!my-4 !w-full lg:!max-w-[60%] !mx-auto !w-full border-t-[1px] border-t-solid border-[var(--white-50, rgba(255, 255, 255, 0.50))]"}
           pageClassName={"block"}
           pageLinkClassName={"!text-[var(--darkmode-text-grey, #A5B3B3)] !mx-3 hover:!bg-[var(--darkmode-bg-02, #141F1F)] hover:!text-white"}
           activeClassName={`${classes.active_bg} text-white`}
@@ -56,4 +59,4 @@ const ReportsPagination = ({ pageCount, onPageChange, initialPage = 0 }) => {
   );
 }
 
-export default ReportsPagination;
+export default ReportsPagination
