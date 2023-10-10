@@ -20,7 +20,7 @@ import Link from "next/link";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import validation from '../../../validation/validation';
 import { useRouter } from 'next/navigation';
-import { register } from "../../../server/registeration"
+// import { register } from "../../../server/registeration"
 
 
 const Register = () => {
@@ -71,8 +71,8 @@ const Register = () => {
             setIsLoading(true);
             try{
 
-            const response = await register(formData.username, formData.password);
-            console.log(response);
+            // const response = await register(formData.username, formData.password);
+            // console.log(response);
 
             } catch(err) {
                 console.log(err)

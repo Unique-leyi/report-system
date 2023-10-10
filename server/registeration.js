@@ -1,6 +1,6 @@
 import { readJson, writeJson } from 'fs-extra'
 
-const registerUser = async (username, password) => {
+export const register = async (username, password) => {
 
 
   // Create a user object

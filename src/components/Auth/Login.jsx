@@ -20,7 +20,7 @@ import Link from "next/link";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import validation from '../../../validation/validation';
 import { useRouter } from 'next/navigation';
-import { login } from "../../../server/login";
+// import { login } from "../../../server/login";
 
 const Login = () => {
     const router = useRouter();
@@ -73,8 +73,8 @@ const Login = () => {
             setIsLoading(true);
             try{
 
-            const response = await login(formData.username, formData.password);
-            console.log(response);
+            // const response = await login(formData.username, formData.password);
+            // console.log(response);
 
             } catch(err) {
                 console.log(err)

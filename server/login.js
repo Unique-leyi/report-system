@@ -1,6 +1,6 @@
 import { readJson } from 'fs-extra'
 
-const login = async (username, password) => {
+export const login = async (username, password) => {
 
   const users = JSON.parse(await readJson('./users.json'));
 
