@@ -243,7 +243,13 @@ const ReportUpload = () => {
                             </VStack>
 
                             <VStack spacing={10}>
-                                <Dropzone formData={formData} setFormData={setFormData} />
+                            <Dropzone
+                                name="task_images"
+                                formData={formData}
+                                setFormData={setFormData}
+                                files={formData.task_images}
+                                onChange={(files) => setFormData({ ...formData, task_images: files })}
+                            />
                                 { errors.task_images && <p className="!text-red-400 !text-sm">{errors.task_images}</p> }   
                             </VStack>
 
