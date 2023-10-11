@@ -17,11 +17,11 @@ import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import { useAuth } from '../../context/AuthContext';
 
 const Welcome = () => {
-    const { isAuthenticated } = useAuth();
+    const { isAuthenticated, user } = useAuth();
   
     return (
         <Stack w="100%">
-             <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10} sx={{ padding: {
+             <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={10} sx={{ padding: {
                 base: "2rem 0.5rem !important",
                 md: "1rem 2rem !important"
             } }}>
@@ -31,7 +31,7 @@ const Welcome = () => {
                             <Heading as="h5" 
                                 color={"var(--white-50, rgba(255, 255, 255, 0.50))"}
                                 className={classes.welcome_text}>
-                                Welcome back Admin
+                                    { isAuthenticated() ? `Welcome back ${user?.username}`: "Welcome back" }
                             </Heading>
 
                             <Image src={wave} alt="hand-wave-image" priority={true}/>
@@ -80,15 +80,15 @@ const Welcome = () => {
 
                                 </Stack>
                                 
+                                <Stack w="100%">
                                 {
                                     isAuthenticated() &&
 
-                                    <Stack w="100%">
                                         <Link href={"/dashboard/report-upload"} className="!bg-farblue !rounded-full !w-full !text-center font-medium !py-3 !px-7">
                                             Upload Report
                                         </Link>
-                                    </Stack>
                                 }
+                                </Stack>
                             </Flex>
 
                         </Box>

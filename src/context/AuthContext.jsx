@@ -16,6 +16,7 @@ export const AuthProvider = ({ children }) => {
 
       // Save the token to localStorage
       localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(user));
     } catch (error) {
       throw error;
     }
@@ -37,7 +38,8 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     // Retrieve user data from local storage on component mount
     if (typeof window !== 'undefined' && window.localStorage) {
-      const userData = JSON.parse(localStorage.getItem("user"));
+
+      const userData = localStorage.getItem("user") === "undefined" || false ? null : JSON.parse(localStorage.getItem("user"));
       if (userData) {
         setUser(userData);
       }

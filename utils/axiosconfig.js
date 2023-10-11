@@ -30,7 +30,6 @@ export const setAuthToken = (token) => {
 export const loginUser = async (credentials) => {
   try {
     const response = await instance.post('/auth/login', credentials);
-    console.log(response);
     return response.data;
   } catch (error) {
     throw error;

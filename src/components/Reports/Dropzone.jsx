@@ -7,26 +7,39 @@ import Image from "next/image";
 import { MdOutlineCancel } from "react-icons/md";
 
 
-const Dropzone = ({ name }) => {
-    const [files, setFiles] = useState([]);
-    const [rejected, setRejected] = useState([]);
-  
-    const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
-      if (acceptedFiles && acceptedFiles?.length <= 3) {
-        const newFiles = acceptedFiles?.slice(0, 3 - files.length);
-        setFiles(previousFiles => [
-          ...previousFiles,
-          ...newFiles.map(file =>
-            Object.assign(file, { preview: URL.createObjectURL(file) })
-          )
-        ])
-      }
-  
-      if (rejectedFiles && rejectedFiles?.length) {
-        setRejected(previousFiles => [...previousFiles, ...rejectedFiles]);
-      }
-    }, [])
-  
+const Dropzone = ({ name, formData, setFormData }) => {
+  const [files, setFiles] = useState([]);
+  const [rejected, setRejected] = useState([]);
+
+  const onDrop = (acceptedFiles, rejectedFiles) => {
+    if (acceptedFiles.length <= 3) {
+      const newFiles = acceptedFiles.slice(0, 3 - formData.task_images.length);
+
+      setFiles((previousFiles) => [
+        ...previousFiles,
+        ...newFiles.map((file) =>
+          Object.assign(file, { preview: URL.createObjectURL(file) })
+        )
+      ]);
+
+      // Update the task_images property in formData
+      setFormData((prevData) => ({
+        ...prevData,
+        task_images: [
+          ...prevData.task_images,
+          ...newFiles.map((file) => ({
+            name: file.name,
+            type: file.type,
+          })),
+        ],
+      }));
+    }
+
+    if (rejectedFiles.length) {
+      setRejected((previousFiles) => [...previousFiles, ...rejectedFiles]);
+    }
+  };
+
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
       accept: {
         'image/*': []
@@ -35,14 +48,20 @@ const Dropzone = ({ name }) => {
       onDrop
     });
   
-    useEffect(() => {
-      return () => files.forEach(file => URL.revokeObjectURL(file.preview));
-    }, [files])
-  
-    const removeFile = (name) => {
-      setFiles(files => files.filter(file => file.name !== name));
-    }
-  
+
+  const removeFile = (name) => {
+    setFiles((currentFiles) => currentFiles.filter((file) => file.name !== name));
+
+    // Remove the file from the task_images property in formData
+    setFormData((prevData) => ({
+      ...prevData,
+      task_images: prevData.task_images.filter((image) => image.name !== name),
+    }));
+  };
+
+  useEffect(() => {
+    return () => files.forEach((file) => URL.revokeObjectURL(file.preview));
+  }, [files]);
  
     return (
         <Flex 
@@ -52,14 +71,14 @@ const Dropzone = ({ name }) => {
             direction="column"
             className="container" 
         >
-            <Box w="100%" {...getRootProps({ className: "dropzone" })}>
+            <Box w="100%" {...getRootProps({ className: "dropzone", name: name })}>
                 <FormControl id="task_image">
                     <Flex w={{
                       base: "19rem",
                       sm: "30rem",
                     }} justify="center" align="center" gap="1rem" direction="column"  className="!text-white !mb-2 !text-sm !font-outfit !bg-[#0E1515] !border-[1px] !py-12 !px-6 !border-[rgba(255,255,255,0.08)] !rounded-lg">
 
-                        <Input name={name} {...getInputProps()}/>
+                        <Input type="file" name={name} {...getInputProps({ name: name })}/>
                         <Image src={uploadDocs} alt="upload-document"/>
 
                     </Flex>

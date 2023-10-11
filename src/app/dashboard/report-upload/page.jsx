@@ -12,8 +12,6 @@ const ReportUploadPage = () => {
   useEffect(() => {
     if(!isAuthenticated()){
       router.push("/auth/login");
-    } else {
-      router.push("/dashboard/reports");
     }
   }, []);
 

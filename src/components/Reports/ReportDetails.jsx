@@ -25,9 +25,15 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { avatar, imageOne, imageTwo } from "../../../public/assets/";
 import classes from "../styles/reportdetails.module.css";
+import instance from '../../../utils/axiosconfig';
+import { useAuth } from '../../context/AuthContext';
+
 
 
 const ReportDetails = ({ handleIsOpen, handleOnClose }) => {
+
+    const { isAuthenticated } = useAuth();
+
 
     const images = [
         imageOne,
@@ -37,7 +43,7 @@ const ReportDetails = ({ handleIsOpen, handleOnClose }) => {
 
     return (
         <Modal blockScrollOnMount={false} isOpen={handleIsOpen} onClose={handleOnClose} sx={{
-            overflow: "hidden !important",
+            overflow: "auto !important",
         }}>
        
         <ModalOverlay />
@@ -59,12 +65,12 @@ const ReportDetails = ({ handleIsOpen, handleOnClose }) => {
 
                 bottom: {
                     base: "0% !important",
-                    lg: "-20% !important",
+                    md: "-5% !important",
                 },
 
                 marginBlock: {
                     base: "0 !important",
-                    lg: "8px !important"
+                    md: "8px !important"
                 }
             }}
         >
@@ -226,12 +232,16 @@ const ReportDetails = ({ handleIsOpen, handleOnClose }) => {
                             lg: "0 !important",
                         }
                     }}>
-                        <Button iconSpacing={"0.5rem !important"} leftIcon={<TbEdit/>} className="!bg-farblue !w-full lg:!w-[initial] !py-6 !px-4 lg:!mx-3 !rounded-full" sx={{
-                            border: "1px solid var(--white-8, rgba(255, 255, 255, 0.08)) !important",
-                            '.chakra-button__icon *': { fontSize: "1.6rem" },
-                        }}>
-                            Edit Report
-                        </Button> 
+
+                        {
+                            isAuthenticated() &&
+                                <Button iconSpacing={"0.5rem !important"} leftIcon={<TbEdit/>} className="!bg-farblue !w-full lg:!w-[initial] !py-6 !px-4 lg:!mx-3 !rounded-full" sx={{
+                                    border: "1px solid var(--white-8, rgba(255, 255, 255, 0.08)) !important",
+                                    '.chakra-button__icon *': { fontSize: "1.6rem" },
+                                }}>
+                                    Edit Report
+                                </Button> 
+                        }
                     </Box>
 
                 </Flex>

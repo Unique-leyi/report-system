@@ -17,7 +17,6 @@
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "axios": "^1.5.1",
-    "bcrypt": "^5.1.1",
     "framer-motion": "^10.16.4",
     "fs": "^0.0.1-security",
     "fs-extra": "^11.1.1",

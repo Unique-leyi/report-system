@@ -22,6 +22,10 @@ import Link from "next/link";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import instance from '../../../utils/axiosconfig';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import uploadValidation from '../../../validation/uploadvalidation';
 
 
 const ReportUpload = () => {
@@ -34,48 +38,98 @@ const ReportUpload = () => {
     });
 
     const [isFormFilled, setIsFormFilled] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [errors, setErrors] = useState({});
+
     const areAllFieldsFilled = () => {
-        const { task_headline, task_summary, task_date, task_tags, task_image } = formData;
+
+        const { task_headline, task_summary, task_date, task_tags, task_images } = formData;
         return (
           task_headline.trim() !== '' &&
           task_summary.trim() !== '' &&
           task_date.trim() !== '' &&
           task_tags.length > 0 &&
-          task_image.length > 0
+          task_images.length > 0
         );
       };
       
     
-    const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value,
-        });
-
-        setIsFormFilled(areAllFieldsFilled());
+      const handleChange = (e) => {
+        if (e.target.name === 'task_images') {
+            setFormData({
+                ...formData,
+                task_images: e.target.files, // Update task_images with the selected files
+            });
+        } else {
+            setFormData({
+                ...formData,
+                [e.target.name]: e.target.value,
+            });
+        }
 
         console.log(formData);
-
+    
+        setIsFormFilled(areAllFieldsFilled());
     }
+    
 
     const toggleTagBtns = (value) => {
         setFormData((prevData) => {
           const { task_tags } = prevData;
           if (task_tags.includes(value)) {
-             //if it does exist, remove it
+            // If it does exist, remove it
             return {
               ...prevData,
               task_tags: task_tags.filter((tag) => tag !== value),
             };
           } else {
-            //if it does not exist, add it
+            // If it does not exist, add it
             return {
               ...prevData,
               task_tags: [...task_tags, value],
             };
           }
         });
-      };
+    };
+      
+
+
+      const handleValidateForm = (formData) => {
+        const formErrors = uploadValidation(formData);
+        setErrors(formErrors);
+        return formErrors;
+    }
+
+
+    const handleFormSubmit = async (e) => {
+        e.preventDefault();
+        const formErrors = handleValidateForm(formData);
+    
+        //Upload to DB
+        if (Object.keys(formErrors).length === 0) {
+            
+            setIsLoading(true);
+            try{
+
+            const response = await instance.post("/report/", formData);
+            toast.success("Login Successful");
+            toast.info("Redirecting....", {
+                autoClose: 3000,
+            });
+
+            setTimeout(() => {
+                router.push("/dashboard/reports");
+            }, 3000);
+
+            } catch(err) {
+                toast.error("Login failed");
+            } finally {
+                setIsLoading(false);
+            }
+        
+        }
+    }
+
     return (
        <VStack sx={{
         padding: {
@@ -133,6 +187,7 @@ const ReportUpload = () => {
                                         fontWeight: 300,
                                     }}/>
                                 </FormControl>
+                                { errors.task_headline && <p className="!text-red-400 !text-sm">{errors.task_headline}</p> }
                             </Box>
 
                             <Box w="100%">
@@ -144,6 +199,7 @@ const ReportUpload = () => {
                                         fontWeight: 300,
                                     }}/>
                                 </FormControl>
+                                { errors.task_summary && <p className="!text-red-400 !text-sm">{errors.task_summary}</p> }
                             </Box>
 
                             <Box w="100%">
@@ -152,7 +208,6 @@ const ReportUpload = () => {
                                     <DatePicker 
                                         selected={formData.task_date} 
                                         onChange={(date) => setFormData({...formData, task_date: date})}
-                                        closeOnScroll={(e) => e.target === document}
                                         placeholderText="Select date"
                                         className=" !text-white !bg-[#0E1515] !border-[1px] !py-[10px] !px-[14px] !border-[rgba(255,255,255,0.08)]" _placeholder={{
                                             fontSize: "12px",
@@ -161,6 +216,7 @@ const ReportUpload = () => {
                                         }}
                                     />
                                 </FormControl>
+                                { errors.task_date && <p className="!text-red-400 !text-sm">{errors.task_date}</p> }
                             </Box>
 
                             <VStack spacing={10}>
@@ -183,10 +239,12 @@ const ReportUpload = () => {
                                         Development
                                     </Button>
                                 </Box>
+                                { errors.task_tags && <p className="!text-red-400 !text-sm">{errors.task_tags}</p> }
                             </VStack>
 
                             <VStack spacing={10}>
-                                <Dropzone name={"task_images"}/>   
+                                <Dropzone formData={formData} setFormData={setFormData} />
+                                { errors.task_images && <p className="!text-red-400 !text-sm">{errors.task_images}</p> }   
                             </VStack>
 
                             <Stack w="100%" spacing={10}>
@@ -196,6 +254,8 @@ const ReportUpload = () => {
                                     size="md"
                                     width={"100%"}
                                     isDisabled={!isFormFilled}
+                                    isLoading={isLoading}
+                                    onClick={handleFormSubmit}
                                 >
                                 Upload Report
                                 </Button>
@@ -205,6 +265,7 @@ const ReportUpload = () => {
 
                 </Card>
             </Box>
+            <ToastContainer/>
        </VStack>
     )
 }
