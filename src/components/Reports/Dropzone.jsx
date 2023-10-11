@@ -46,14 +46,16 @@ const Dropzone = ({ name, formData, setFormData, files, onChange }) => {
             className="!text-white !mb-2 !text-sm !font-outfit !bg-[#0E1515] !border-[1px] !py-12 !px-6 !border-[rgba(255,255,255,0.08)] !rounded-lg"
           >
 
-            <FormLabel id="task_images">
+            <FormLabel htmlFor="file" id="task_images">
               <Input
-                type="hidden"
+                id="file"
+                type="file"
                 name={name}
+                className="!hidden"
                 onChange={(e) => onChange(e.target.files)}
               />
+              <Image src={uploadDocs} alt="upload-document" />
             </FormLabel>
-            <Image src={uploadDocs} alt="upload-document" />
           </Flex>
 
           <Flex justify="space-between" align="center" gap="0rem">
