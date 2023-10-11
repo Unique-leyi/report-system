@@ -4,20 +4,10 @@ import { Providers } from "./providers";
 import AOS from 'aos';
 import 'aos/dist/aos.css'; 
 import { useEffect } from "react";
-import DashboardHeader from "../components/Dashboard/DashboardHeader";
-import { usePathname, useRouter } from "next/navigation";
+import { AuthProvider } from "../context/AuthContext";
 
 
 export default function RootLayout({ children }) {
-
-  const pathname = usePathname();
-  const router = useRouter();
- 
-  useEffect(() => {
-    if(pathname === "/"){
-      router.replace("/dashboard/reports");
-    }
-  }, [pathname, router]);
 
   useEffect(() => {
     AOS.init();
@@ -27,9 +17,9 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
       <Providers>
-        <DashboardHeader>
-            {children}
-        </DashboardHeader>
+        <AuthProvider>
+          { children }
+        </AuthProvider>
       </Providers>
       </body>
     </html>

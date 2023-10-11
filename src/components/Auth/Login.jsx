@@ -17,13 +17,17 @@ import {
 import classes from "../styles/reportupload.module.css";
 import { useState } from 'react';
 import Link from "next/link";
-import { RiArrowLeftSLine } from "react-icons/ri";
+import { RiArrowRightSLine } from "react-icons/ri";
 import validation from '../../../validation/validation';
 import { useRouter } from 'next/navigation';
-// import { login } from "../../../server/login";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useAuth } from '../../context/AuthContext';
+
 
 const Login = () => {
     const router = useRouter();
+    const { login } = useAuth();
 
     const [formData, setFormData] = useState({
         username: "",
@@ -63,26 +67,30 @@ const Login = () => {
         e.preventDefault();
         const formErrors = handleValidateForm(formData);
     
-
-    //Upload to DB and Send to Email
-    if (Object.keys(formErrors).length === 0) {
-        
         //Upload to DB
         if (Object.keys(formErrors).length === 0) {
             
             setIsLoading(true);
             try{
 
-            // const response = await login(formData.username, formData.password);
-            // console.log(response);
+            const response = await login(formData);
+            toast.success("Login Successful");
+            toast.info("Redirecting....", {
+                autoClose: 3000,
+            });
+
+            setTimeout(() => {
+                router.push("/dashboard/reports");
+            }, 3000);
 
             } catch(err) {
-                console.log(err)
+                toast.error("Login failed");
+            } finally {
+                setIsLoading(false);
             }
         
         }
     }
-}
 
 
     return (
@@ -91,15 +99,20 @@ const Login = () => {
             base: "1.5rem !important",
             md: "2.5rem 3rem !important",
         },
+
+        marginBlock: {
+            base: "3rem !important",
+            md: "10rem !important"
+        }
         }}>
              <Box mb={"0.5rem"} w={{ 
                     base: "100%",
                     lg: "45%",
                 }}>
-                <Link href="/dashboard/reports" className="!text-farash hover:!text-white">
+                <Link href="/auth/register" className="!text-farash hover:!text-white">
                     <Flex justify="flex-start" align="center" gap="0.5rem">
-                        <RiArrowLeftSLine mx='2px'/> 
-                        <Text>Go back to home</Text>
+                        <Text>Don't have an Account?, Sign up</Text>
+                        <RiArrowRightSLine mx='2px'/> 
                     </Flex>
                 </Link>
             </Box>
@@ -169,7 +182,7 @@ const Login = () => {
                                     isLoading={isLoading}
                                     onClick={handleFormSubmit}
                                 >
-                                Upload Report
+                                    Login
                                 </Button>
                             </Stack>
                         </Flex>
@@ -177,6 +190,7 @@ const Login = () => {
 
                 </Card>
             </Box>
+            <ToastContainer/>
        </VStack>
     )
 }

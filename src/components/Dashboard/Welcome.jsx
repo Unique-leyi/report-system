@@ -14,9 +14,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { calendar, wave } from "../../../public/assets/";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
-
+import { useAuth } from '../../context/AuthContext';
 
 const Welcome = () => {
+    const { isAuthenticated } = useAuth();
   
     return (
         <Stack w="100%">
@@ -78,12 +79,16 @@ const Welcome = () => {
                                     </Button>
 
                                 </Stack>
+                                
+                                {
+                                    isAuthenticated() &&
 
-                                <Stack w="100%">
-                                    <Link href={"/dashboard/report-upload"} className="!bg-farblue !rounded-full !w-full !text-center font-medium !py-3 !px-7">
-                                        Upload Report
-                                    </Link>
-                                </Stack>
+                                    <Stack w="100%">
+                                        <Link href={"/dashboard/report-upload"} className="!bg-farblue !rounded-full !w-full !text-center font-medium !py-3 !px-7">
+                                            Upload Report
+                                        </Link>
+                                    </Stack>
+                                }
                             </Flex>
 
                         </Box>

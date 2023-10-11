@@ -17,10 +17,12 @@ import {
 import classes from "../styles/reportupload.module.css";
 import { useState } from 'react';
 import Link from "next/link";
-import { RiArrowLeftSLine } from "react-icons/ri";
+import { RiArrowRightSLine } from "react-icons/ri";
 import validation from '../../../validation/validation';
 import { useRouter } from 'next/navigation';
-// import { register } from "../../../server/registeration"
+import instance from '../../../utils/axiosconfig';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Register = () => {
@@ -71,15 +73,26 @@ const Register = () => {
             setIsLoading(true);
             try{
 
-            // const response = await register(formData.username, formData.password);
-            // console.log(response);
+            const response = await instance.post("/auth/register", formData);
+            console.log(response);
+            toast.success(response?.data?.message);
+            toast.info("Redirecting....", {
+                autoClose: 3000,
+            });
 
+            setTimeout(() => {
+                router.push("/auth/login");
+            }, 3000);
+            
             } catch(err) {
-                console.log(err)
+                const { response } = err;
+                toast.error(response?.data?.error);
+            } finally {
+                setIsLoading(false);
             }
         
         }
-}
+    }
 
 
     return (
@@ -88,15 +101,20 @@ const Register = () => {
             base: "1.5rem !important",
             md: "2.5rem 3rem !important",
         },
+
+        marginBlock: {
+            base: "3rem !important",
+            md: "10rem !important"
+        }
         }}>
              <Box mb={"0.5rem"} w={{ 
                     base: "100%",
                     lg: "45%",
                 }}>
-                <Link href="/dashboard/reports" className="!text-farash hover:!text-white">
+                <Link href="/auth/login" className="!text-farash hover:!text-white">
                     <Flex justify="flex-start" align="center" gap="0.5rem">
-                        <RiArrowLeftSLine mx='2px'/> 
-                        <Text>Go back to home</Text>
+                        <Text>Already have an Account?, Sign in</Text>
+                        <RiArrowRightSLine mx='2px'/> 
                     </Flex>
                 </Link>
             </Box>
@@ -166,7 +184,7 @@ const Register = () => {
                                     isLoading={isLoading}
                                     onClick={handleFormSubmit}
                                 >
-                                Upload Report
+                                Register
                                 </Button>
                             </Stack>
                         </Flex>
@@ -174,6 +192,8 @@ const Register = () => {
 
                 </Card>
             </Box>
+
+            <ToastContainer/>
        </VStack>
     )
 }
