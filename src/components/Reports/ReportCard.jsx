@@ -2,6 +2,7 @@
 import { 
     Stack, 
     VStack, 
+    HStack, 
     Box, 
     Card, 
     CardHeader, 
@@ -17,7 +18,12 @@ import { convertDate } from '../../../utils/helper';
 
 
 
-const ReportCard = ({ id, handleOpen, task_title, task_tags, task_images, task_date, task_author }) => {
+const ReportCard = ({ id, handleOpen, task_headline, task_tags, task_images, task_date }) => {
+
+    const visibleImages = task_images.slice(0, 2);
+    const remainingImagesCount = Math.max(0, task_images.length - 2);
+
+    
     return (
         <Card data-aos="zoom-in" data-aos-duration="2000" gap={4} 
             sx={{
@@ -73,7 +79,7 @@ const ReportCard = ({ id, handleOpen, task_title, task_tags, task_images, task_d
                         <Stack>
                             <Box w="100%">
                                 <Heading as="h4" color="var(--white-100, #FFF)" className="!text-white !font-bold !text-xl lg:!text-2xl !mt-3">
-                                    { task_title }
+                                    { task_headline }
                                 </Heading>
                             </Box>
                         </Stack>
@@ -100,9 +106,9 @@ const ReportCard = ({ id, handleOpen, task_title, task_tags, task_images, task_d
             </CardBody>
 
             <CardFooter>
-                <Stack direction='row'>
+                <HStack direction='row' align={"center"}>
                     {
-                        task_images.map((image, i) => (
+                        visibleImages.map((image, i) => (
                             <Image
                                 key={i}
                                 width={100}
@@ -112,9 +118,15 @@ const ReportCard = ({ id, handleOpen, task_title, task_tags, task_images, task_d
                                 alt='report-image'
                             />
                         ))
-                    }                 
-                   
-                </Stack>
+                    } 
+
+                    {remainingImagesCount > 0 && (
+                        <div className="absolute bg-[rgba(0, 0, 0, 0.4)] !py-1 !px-2 text-white bottom-10 right-16 z-2 rounded-full" style={{ backdropFilter: "blur(2px)" }}>
+                        +{remainingImagesCount}
+                        </div>
+                    )} 
+
+                </HStack>
             </CardFooter>
              
         </Card>

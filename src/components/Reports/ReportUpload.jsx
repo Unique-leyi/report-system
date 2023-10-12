@@ -80,7 +80,7 @@ const ReportUpload = () => {
             ...formData,
             task_tags: tags,
         });
-        setIsFormFilled(areAllFieldsFilled());
+        // setIsFormFilled(areAllFieldsFilled());
     };
 
     
@@ -97,6 +97,8 @@ const ReportUpload = () => {
             );
             uploadMultipleImages(convertedImages);
         }
+
+        setIsFormFilled(areAllFieldsFilled());
     };
 
     const uploadSingleImage = async (base64) => {
@@ -110,7 +112,7 @@ const ReportUpload = () => {
                 task_images: [...prevData.task_images, imageUpload.data.message]
             }));
 
-            setIsFormFilled(areAllFieldsFilled());
+           
 
         } catch (err) {
             console.log(err);
@@ -128,7 +130,7 @@ const ReportUpload = () => {
                 task_images: [...prevData.task_images, ...imageUpload.data.message]
             }));
 
-            setIsFormFilled(areAllFieldsFilled());
+            // setIsFormFilled(areAllFieldsFilled());
 
         } catch (err) {
             console.log(err);

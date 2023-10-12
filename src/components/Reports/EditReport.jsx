@@ -59,10 +59,9 @@ const EditReport = ({ reportId }) => {
                setFormData({
                     task_headline: response?.data?.task_headline,
                     task_summary: response?.data?.task_summary,
-                    // task_date: response?.data?.task_date,
+                    task_date: response?.data?.task_date,
                     task_tags: response?.data?.task_tags,
                     task_images: response?.data?.task_images,
-                    userId: user?._id,
                 });
 
             } catch (error) {
