@@ -38,6 +38,7 @@ const EditReport = ({ reportId }) => {
 
     const [formData, setFormData] = useState({
         task_headline: "",
+        task_author: "",
         task_summary: "",
         task_date: null,
         task_images: [],
@@ -58,8 +59,9 @@ const EditReport = ({ reportId }) => {
         
                setFormData({
                     task_headline: response?.data?.task_headline,
+                    task_author: response?.data?.task_author,
                     task_summary: response?.data?.task_summary,
-                    task_date: response?.data?.task_date,
+                    task_date: new Date(response?.data?.task_date),
                     task_tags: response?.data?.task_tags,
                     task_images: response?.data?.task_images,
                 });
@@ -77,9 +79,10 @@ const EditReport = ({ reportId }) => {
     }, [reportId]);
 
     const areAllFieldsFilled = () => {
-        const { task_headline, task_summary, task_date, task_tags, task_images } = formData;
+        const { task_headline, task_author, task_summary, task_date, task_tags, task_images } = formData;
         return (
             task_headline.trim() !== '' &&
+            task_author.trim() !== '' &&
             task_summary.trim() !== '' &&
             task_date &&
             task_tags.length > 0 &&
@@ -177,6 +180,7 @@ const EditReport = ({ reportId }) => {
     
          const formDataToSend = {
              task_headline: formData.task_headline,
+             task_author: formData.task_author,
              task_summary: formData.task_summary,
              task_date: formData.task_date,
              task_tags: formData.task_tags,
@@ -279,6 +283,18 @@ const EditReport = ({ reportId }) => {
                                     }}/>
                                 </FormControl>
                                 { errors.task_headline && <p className="!text-red-400 !text-sm">{errors.task_headline}</p> }
+                            </Box>
+
+                            <Box w="100%">
+                                <FormControl id="task-author">
+                                    <FormLabel className="!text-white !mb-2 !text-sm !font-outfit">Task Author</FormLabel>
+                                    <Input type="text" name="task_author" onChange={handleChange} value={formData.task_author} placeholder="Enter your name" className=" !text-white !bg-[#0E1515] !border-[1px] !py-[10px] !px-[14px] !border-[rgba(255,255,255,0.08)]" _placeholder={{
+                                        fontSize: "14px",
+                                        fontFamily: "Outfit",
+                                        fontWeight: 300,
+                                    }}/>
+                                </FormControl>
+                                { errors.task_author && <p className="!text-red-400 !text-sm">{errors.task_author}</p> }
                             </Box>
 
                             <Box w="100%">

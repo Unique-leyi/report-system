@@ -18,7 +18,7 @@ import { convertDate } from '../../../utils/helper';
 
 
 
-const ReportCard = ({ id, handleOpen, task_headline, task_tags, task_images, task_date }) => {
+const ReportCard = ({ id, handleOpen, task_headline, task_author, task_tags, task_images, task_date }) => {
 
     const visibleImages = task_images.slice(0, 2);
     const remainingImagesCount = Math.max(0, task_images.length - 2);
@@ -60,7 +60,7 @@ const ReportCard = ({ id, handleOpen, task_headline, task_tags, task_images, tas
                                 <Text className="!text-xs !font-normal" sx={{
                                     color: "var(--darkmode-text-grey, #A5B3B3)",
                                 }}>
-                                    Uploaded by: Jason Charles
+                                    Uploaded by: { task_author }
                                 </Text>
                             </Box>
                         </Stack>
@@ -121,7 +121,7 @@ const ReportCard = ({ id, handleOpen, task_headline, task_tags, task_images, tas
                     } 
 
                     {remainingImagesCount > 0 && (
-                        <div className="absolute bg-[rgba(0, 0, 0, 0.4)] !py-1 !px-2 text-white bottom-10 right-16 z-2 rounded-full" style={{ backdropFilter: "blur(2px)" }}>
+                        <div className="absolute bg-[rgba(0, 0, 0, 0.4)] !py-1 !px-2 text-white bottom-10 right-32 lg:right-16 z-2 rounded-full" style={{ backdropFilter: "blur(2px)" }}>
                         +{remainingImagesCount}
                         </div>
                     )} 

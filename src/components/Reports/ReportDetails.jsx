@@ -225,7 +225,7 @@ const ReportDetails = ({ reportId, handleIsOpen, handleOnClose }) => {
                                 <Text className="!text-xs !font-normal" sx={{
                                     color: "var(--darkmode-text-grey, #A5B3B3)",
                                 }}>
-                                    Uploaded by: Jason Charles
+                                    Uploaded by: { report?.task_author }
                                 </Text>
                             </Box>
                         </Stack>

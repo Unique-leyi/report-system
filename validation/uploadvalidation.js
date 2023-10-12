@@ -7,6 +7,12 @@ const uploadValidation = (values) => {
         errors.task_headline = "Task headline must contain at least 1 character";
     }
 
+    if (!values.task_author) {
+        errors.task_author = "Task author is required";
+    } else if (values.task_author.trim().length === 0) {
+        errors.task_author = "Task author must contain at least 1 character";
+    }
+
     if (!values.task_summary) {
         errors.task_summary = "Task summary is required";
     } else if (values.task_summary.trim().length === 0) {
