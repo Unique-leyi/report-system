@@ -33,7 +33,7 @@ export const NextBtn = () => {
 
 const ReportsPagination = ({ pageCount, onPageChange, initialPage = 0 }) => {
   return (
-    <VStack data-aos="fade-up" data-aos-duration="1000" sx={{
+    <VStack sx={{
         marginTop: {
             base: "0.4rem !important",
             md: "4rem !important"
