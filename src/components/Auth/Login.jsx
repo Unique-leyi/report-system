@@ -74,6 +74,7 @@ const Login = () => {
             try{
 
             const response = await login(formData);
+            console.log(response);
             toast.success("Login Successful");
             toast.info("Redirecting....", {
                 autoClose: 3000,

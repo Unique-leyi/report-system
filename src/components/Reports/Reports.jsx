@@ -4,16 +4,17 @@ import ReportCard from "./ReportCard";
 import ReportsPaginate from "./ReportsPaginate";
 import { useState } from 'react';
 import { useReportContext } from '../../context/ReportContext';
-import { data } from "../../api/data";
 
-const Reports = () => {
+const Reports = ({ reportsData }) => {
 
-  const { onOpen } = useReportContext();
-  const [ openModal, setOpenModal ] = useState(0);
+  const { onOpen, setId } = useReportContext();
+  const [ openModal, setOpenModal ] = useState("");
 
   const handleOpenModal = (value) => {
-    const isOpen = value !== openModal || openModal === 0;
-    setOpenModal(isOpen ? value : 0);
+    const isOpen = value !== openModal || openModal === "";
+    setOpenModal(isOpen ? value : "");
+    setId(value);
+
     if (isOpen) {
       onOpen();
     }
@@ -23,14 +24,14 @@ const Reports = () => {
 
   const [currentPage, setCurrentPage] = useState(0); 
   const itemsPerPage = 12; 
-  const totalItems = data.length; 
+  const totalItems = reportsData?.length; 
 
   const pageCount = Math.ceil(totalItems / itemsPerPage);
 
   const [itemOffset, setItemOffset] = useState(0);
 
   const endOffset = itemOffset + itemsPerPage;
-  const currentItems = data.slice(itemOffset, endOffset);
+  const currentItems = reportsData?.slice(itemOffset, endOffset);
  
   const handlePageClick = (event) => {
     const newOffset = (event.selected * itemsPerPage) % items.length;
@@ -54,7 +55,7 @@ const Reports = () => {
                 { currentItems &&
                     currentItems.map((card, i) => (
                         <GridItem key={i}>
-                            <ReportCard {...card} handleOpen={() => handleOpenModal(i)}/>
+                            <ReportCard id={card._id} {...card} handleOpen={() => handleOpenModal(card._id)}/>
                         </GridItem>
                     ))
                 }

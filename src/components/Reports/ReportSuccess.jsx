@@ -1,8 +1,6 @@
 "use client";
-import { 
-    Stack, 
+import {  
     VStack, 
-    HStack, 
     Box, 
     Modal,
     ModalOverlay,
@@ -10,27 +8,29 @@ import {
     ModalHeader,
     ModalFooter,
     ModalBody,
-    ModalCloseButton,
-    Button,
     Heading, 
     Text, 
-    Badge,
     Flex,
 } from '@chakra-ui/react';
+import Image from "next/image";
+import Link from "next/link";
+import { confetti } from '../../../public/assets';
 
 
 
-const EditModal = ({ handleIsOpen, handleOnClose, handleOnCancel, handleOnAccept, isLoading }) => {
+const ReportSuccess = ({ handleIsOpen }) => {
     
     return (   
-        <Modal blockScrollOnMount={false} isOpen={handleIsOpen} onClose={handleOnClose}>
+        <Modal blockScrollOnMount={false} isOpen={handleIsOpen}>
             <ModalOverlay backgroundColor={"rgba(0,0,0,0.8) !important"}/>
             <ModalContent
                 data-aos="zoom-in"
                 data-aos-duration="500"
+
                 backgroundColor="var(--darkmode-bg-02, #141F1F)"
                 gap={"2rem !important"}
                 sx={{
+
                     borderRadius: {
                         base: "8px 8px 0 0 !important",
                         lg: "8px !important",
@@ -53,36 +53,32 @@ const EditModal = ({ handleIsOpen, handleOnClose, handleOnCancel, handleOnAccept
                     }
                 }}
             >
-
-            <HStack w="100% !important" justify={"space-between"} direction='row' align='center'>
-                <ModalHeader className='!text-white !inline !w-full'>Edit report</ModalHeader>
-                <ModalCloseButton className="!text-white" onClick={handleOnClose}/>
-            </HStack> 
-
+                
+                <ModalHeader>
+                    <Flex justify={"center"} align="center" direction={"column"}>
+                        <Image src={confetti} alt="confetti"/>
+                    </Flex>
+                </ModalHeader>
             <ModalBody>
                 <VStack>
                     <Heading as="h4" className="!text-lg !text-white !text-center !font-outfit !font-bold" mb='1rem'>
-                        You can scroll the content behind the modal
+                        Task report updated 
                     </Heading>
 
                     <Text className="!text-center" sx={{
                         color:"var(--darkmode-text-grey, #A5B3B3) !important"
                     }}>
-                         There will be changes in your earlier report.
+                         You have successfully updated your task report
                     </Text>
                 </VStack>
             </ModalBody>
     
             <ModalFooter>
-                <Stack w="100%" direction='row' spacing={4} align='center'>
-                    <Button w="100%" className={`hover:!bg-farblue !border-[1px] !border-solid !border-farblue py-[10px] px-4 !text-farblue hover:!text-primary !bg-transparent text-center font-semibold`} onClick={handleOnCancel}>
-                        Cancel
-                    </Button>
-
-                    <Button w="100%" className={`!bg-farblue py-[10px] px-4 !text-primary text-center font-semibold`}onClick={handleOnAccept} loadingText="Submitting...." isLoading={isLoading}>
-                        Yes, edit report
-                    </Button>
-                </Stack>
+                <VStack w="100%" direction='row' spacing={4} align='center'>
+                    <Link href="/dashboard/reports" w="100%" className={`!bg-farblue !py-[10px] !px-4 !text-primary text-center font-semibold !rounded-lg`}>
+                        Go back to reports
+                    </Link>
+                </VStack>
             </ModalFooter>
             </ModalContent>
         </Modal>
@@ -90,4 +86,5 @@ const EditModal = ({ handleIsOpen, handleOnClose, handleOnCancel, handleOnAccept
 }  
     
 
-export default EditModal
+
+export default ReportSuccess

@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useState } from 'react';
 import { useDisclosure } from '@chakra-ui/react';
 import ReportDetails from "../components/Reports/ReportDetails";
 
@@ -8,11 +8,12 @@ const ReportContext = createContext({});
 
 export const ReportContextProvider = ({ children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [id, setId] = useState("");
 
   return (
-    <ReportContext.Provider value={{isOpen, onOpen, onClose}}>
+    <ReportContext.Provider value={{isOpen, onOpen, onClose, setId}}>
       {children}
-      <ReportDetails handleIsOpen={isOpen} handleOnClose={onClose}/>
+      <ReportDetails reportId={id} handleIsOpen={isOpen} handleOnClose={onClose}/>
     </ReportContext.Provider>
   );
 }

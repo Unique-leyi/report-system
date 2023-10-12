@@ -12,9 +12,12 @@ import {
     Badge, 
 } from '@chakra-ui/react';
 import Image from "next/image";
-import { avatar } from "../../../public/assets"
+import { avatar } from "../../../public/assets";
+import { convertDate } from '../../../utils/helper';
 
-const ReportCard = ({ handleOpen, task_title, task_tags, task_images, task_date, task_author }) => {
+
+
+const ReportCard = ({ id, handleOpen, task_title, task_tags, task_images, task_date, task_author }) => {
     return (
         <Card data-aos="zoom-in" data-aos-duration="2000" gap={4} 
             sx={{
@@ -46,12 +49,12 @@ const ReportCard = ({ handleOpen, task_title, task_tags, task_images, task_date,
                         <Stack>
                             <Box w="100%">
                                 <Heading as="h6" color="var(--white-100, #FFF)" className="!text-white !font-medium !text-sm">
-                                   { task_date }
+                                   { convertDate(task_date) }
                                 </Heading>
                                 <Text className="!text-xs !font-normal" sx={{
                                     color: "var(--darkmode-text-grey, #A5B3B3)",
                                 }}>
-                                    Uploaded by: { task_author }
+                                    Uploaded by: Jason Charles
                                 </Text>
                             </Box>
                         </Stack>

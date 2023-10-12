@@ -16,7 +16,7 @@ import {
     Flex ,
 } from '@chakra-ui/react';
 import classes from "../styles/reportupload.module.css";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Dropzone from "./Dropzone";
 import Link from "next/link";
 import { RiArrowLeftSLine } from "react-icons/ri";
@@ -28,9 +28,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import uploadValidation from '../../../validation/uploadvalidation';
 import { convertToBase64 } from "../../../utils/helper";
 import { useAuth } from '../../context/AuthContext';
+import EditModal from './EditModal';
 import ReportSuccess from './ReportSuccess';
 
-const ReportUpload = () => {
+
+const EditReport = ({ reportId }) => {
 
     const { user } = useAuth();
 
@@ -44,8 +46,37 @@ const ReportUpload = () => {
 
     const [isFormFilled, setIsFormFilled] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [showConfirm, setShowConfirm] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
     const [errors, setErrors] = useState({});
+
+    useEffect(() => {
+        const fetchPost = async () => {
+            setIsLoading(true);
+            try {
+                const response = await instance.get(`/report/${user?._id}/${reportId}`);
+                const { report } = response.data;
+        
+               setFormData({
+                    task_headline: report?.task_headline,
+                    task_summary: report?.task_summary,
+                    task_date: report?.task_date,
+                    task_tags: report?.task_tags,
+                    task_images: report?.task_images,
+                    userId: user?._id,
+                });
+
+            } catch (error) {
+                const { response } = error
+                toast.error(response?.data?.error);
+                router.back();
+            } finally {
+                setIsLoading(false);
+            }
+        }
+    
+        fetchPost();
+    }, [reportId]);
 
     const areAllFieldsFilled = () => {
         const { task_headline, task_summary, task_date, task_tags, task_images } = formData;
@@ -155,8 +186,7 @@ const ReportUpload = () => {
              userId: user?._id,
          }
 
-         const response = await instance.post(`/report/${user?._id}/create`, formDataToSend);
-         toast.success(response?.data?.message);
+         const response = await instance.put(`/report/${user?._id}/${reportId}`, formDataToSend);
          setShowSuccess(true);
         
         } catch(err) {
@@ -164,6 +194,7 @@ const ReportUpload = () => {
             toast.error(response?.data?.error);
         } finally {
             setIsLoading(false);
+            setShowConfirm(false);
         }
 
     
@@ -175,7 +206,7 @@ const ReportUpload = () => {
     
         //Upload to DB
         if (Object.keys(formErrors).length === 0) {
-            sendFormSubmit();
+            setShowConfirm(true);
         }
     }
 
@@ -286,7 +317,7 @@ const ReportUpload = () => {
                             <VStack spacing={10}>
                                 <Box display='flex' alignItems="center" gap="0.8rem">
                                     <Button className={`!text-xs ${
-                                        formData.task_tags.includes("design") ? "!border-blue-300": ""
+                                        formData.task_tags?.includes("design") ? "!border-blue-300": ""
                                     } hover:!border-blue-300`} border="1px solid var(--darkmode-strokes-tinted, rgba(125, 249, 255, 0.12))" borderRadius='full' color="white" sx={{
                                         padding: "0.3rem 0.5rem !important",
                                         backgroundColor: "var(--darkmode-bg-01, #0E1515) !important",
@@ -295,7 +326,7 @@ const ReportUpload = () => {
                                     </Button>
 
                                     <Button className={`!text-xs ${
-                                        formData.task_tags.includes("development") ? "!border-blue-300": ""
+                                        formData.task_tags?.includes("development") ? "!border-blue-300": ""
                                     } hover:!border-blue-300`} border="1px solid var(--darkmode-strokes-tinted, rgba(125, 249, 255, 0.12))" borderRadius='full' color="white" sx={{
                                         padding: "0.3rem 0.5rem !important",
                                         backgroundColor: "var(--darkmode-bg-01, #0E1515) !important",
@@ -321,8 +352,6 @@ const ReportUpload = () => {
                                     className={` ${!isFormFilled ? "!bg-farash " : "!bg-farblue"} !bg-farash hover:!bg-farblue py-[10px] px-4 text-primary text-center font-semibold !rounded-full`}
                                     size="md"
                                     width={"100%"}
-                                    loadingText="Submitting..."
-                                    isLoading={isLoading}
                                     isDisabled={!isFormFilled}
                                     onClick={handleFormSubmit}
                                 >
@@ -335,6 +364,14 @@ const ReportUpload = () => {
                 </Card>
             </Box>
 
+            <EditModal 
+                    handleIsOpen={showConfirm} 
+                    handleOnClose={() => setShowConfirm(false)}
+                    handleOnAccept={sendFormSubmit}
+                    isLoading={isLoading}
+                    handleOnCancel={() => setShowConfirm(false)} 
+                /> 
+
                 <ReportSuccess handleIsOpen={showSuccess}/>
 
 
@@ -343,4 +380,4 @@ const ReportUpload = () => {
     )
 }
 
-export default ReportUpload
+export default EditReport
