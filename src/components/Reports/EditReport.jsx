@@ -55,14 +55,13 @@ const EditReport = ({ reportId }) => {
             setIsLoading(true);
             try {
                 const response = await instance.get(`/report/${user?._id}/${reportId}`);
-                const { report } = response.data;
         
                setFormData({
-                    task_headline: report?.task_headline,
-                    task_summary: report?.task_summary,
-                    task_date: report?.task_date,
-                    task_tags: report?.task_tags,
-                    task_images: report?.task_images,
+                    task_headline: response?.data?.task_headline,
+                    task_summary: response?.data?.task_summary,
+                    // task_date: response?.data?.task_date,
+                    task_tags: response?.data?.task_tags,
+                    task_images: response?.data?.task_images,
                     userId: user?._id,
                 });
 
